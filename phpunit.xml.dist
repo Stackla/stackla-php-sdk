@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+    <!-- Dummy values used to provide credentials. No need to change these. -->
+    <php>
+        <const name="API_HOST" value="https://foo.bar/api/" />
+        <const name="API_KEY" value="bar" />
+        <const name="ACCESS_TOKEN" value="bar-token" />
+        <const name="API_STACK" value="inn" />
+        <const name="DEFAULT_FILTER_ID" value="1234" />
+        <const name="STACKLA_POST_TERM_ID" value="123" />
+        <const name="TILE_ID" value="1234567890qwertyuiop" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Stackla PHP SDK test suite">
+            <directory>./tests/Stackla/Tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -1,0 +1,17 @@
+# Ingore common cruft
+.DS_STORE
+.idea
+
+# Ignore swp file
+*.swp
+
+# Ignore potentially sensitive phpunit file
+phpunit.xml
+
+# Ignore composer generated files
+composer.phar
+composer.lock
+composer-test.lock
+vendor/
+tests/callback/config.php
+tests/callback/access_token.txt
