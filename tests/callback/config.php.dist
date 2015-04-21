@@ -1,0 +1,6 @@
+<?php
+$stack = "YOUR_STACK";
+$host  = "https://api.stackla.com/api/";
+$client_id = 'YOUR_CLIENT_ID';
+$client_secret = 'YOUR_CLIENT_SECRET';
+$callback = 'http://localhost:8000/callback.php';
