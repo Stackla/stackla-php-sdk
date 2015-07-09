@@ -220,7 +220,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
                     $validKey = true;
                 }
             }
-        } if ($property) {
+        } elseif ($property) {
             $validKey = true;
 
             $annotations = ReflectionUtil::mapper($this, $property);
