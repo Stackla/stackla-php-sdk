@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package Stackla\Api
  *
  * @property integer                        $term_id
- * @property-read string                         $_id
- * @property-read string                         $sta_feed_id
+ * @property-read string                    $_id
+ * @property-read string                    $sta_feed_id
  * @property string                         $guid
  * @property string                         $name
  * @property string                         $avatar
@@ -20,9 +20,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string                         $share_text
  * @property string                         $media
  * @property string                         $video_url
- * @property-read string                         $source_user_id
+ * @property-read string                    $source_user_id
  * @property string                         $width_ratio
  * @property string                         $height_ratio
+ * @property string                         $original_url
+ * @property string                         $image
  * @property string                         $image_url
  * @property string                         $image_small_url
  * @property string                         $image_medium_url
@@ -36,9 +38,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property integer                        $image_large_width
  * @property integer                        $image_large_height
  * @property string                         $message
+ * @property-read string                    $original_url
  * @property string                         $html
  * @property \Stackla\Api\Tag[]             $tags
- * @property-read string|enum                    $source
+ * @property-read string|enum               $source
  * @property string|enum                    $status
  * @property string                         $longitude
  * @property string                         $latitude
@@ -47,6 +50,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property-read bool                           $claimed
  * @property-read bool                           $anonymous
  * @property-read integer                        $score
+ * @property-read integer                        $numVotes
+ * @property-read integer                        $numUps
+ * @property-read integer                        $numDowns
+ * @property-read integer                        $numComments
  * @property-read \Stackla\Core\StacklaDateTime  $created_at
  * @property-read \Stackla\Core\StacklaDateTime  $updated_at
  * @property-read \Stackla\Core\StacklaDateTime  $source_created_at
@@ -288,6 +295,15 @@ class Tile extends StacklaModel implements TileInterface
      * @Assert\Type(type="string")
      */
     protected $_message;
+
+    /**
+     * Original source url for the content.
+     *
+     * @var string
+     *
+     * @Assert\Type(type="string")
+     */
+    protected $_originalUrl;
 
     /**
      * HTML body, up to 32k characters. This field is mandatory for "html" media type.

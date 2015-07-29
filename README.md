@@ -373,6 +373,7 @@ image_medium_height | ```integer``` | | ✔ | ✘ |
 image_large_width | ```integer``` | | ✔ | ✘ |
 image_large_height | ```integer``` | | ✔ | ✘ |
 message | ```string``` | ```Tile::STATUS_ENABLED``` <br /> ```Tile::STATUS_QUEUE``` <br /> ```Tile::STATUS_DISABLED``` | ✔ | ✔ | Message body, normalised from the content source. Will be the Tweet text, Facebook status, Instagram caption, etc. Maximum 32k characters
+original_url | ```string``` | | | | Source content url
 html | ```string``` | | ✔ | ✔ | HTML body, up to 32k characters. This field is mandatory for "html" media type
 tags | ```Tag[]``` | | ✔ | ✔ | Array of Tag IDs associated with the Tile. Note: May be returned as array of Integers or Strings
 source | ```string``` | ```Stackla::NETWORK_TWITTER``` <br /> ```Stackla::NETWORK_FACEBOOK``` <br /> ```Stackla::NETWORK_INSTAGRAM``` <br /> ```Stackla::NETWORK_YOUTUBE``` <br /> ```Stackla::NETWORK_GPLUS``` <br /> ```Stackla::NETWORK_FLICKR``` <br /> ```Stackla::NETWORK_PINTEREST``` <br /> ```Stackla::NETWORK_TUMBLR``` <br /> ```Stackla::NETWORK_RSS``` <br /> ```Stackla::NETWORK_ECAL``` <br /> ```Stackla::NETWORK_STACKLA``` <br /> ```Stackla::NETWORK_WEIBO``` | ✘ | ✘ | The source of the post, often a social network. This field is also referred to as "network" in the filter context
