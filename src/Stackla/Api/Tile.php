@@ -194,6 +194,15 @@ class Tile extends StacklaModel implements TileInterface
      *
      * @Assert\Url()
      */
+    protected $_image;
+
+    /**
+     * Full-sized image URL. Should always be deliverd via HTTPS.
+     *
+     * @var string
+     *
+     * @Assert\Url()
+     */
     protected $_imageUrl;
 
     /**

@@ -360,6 +360,7 @@ video_url | ```string``` | | ✔ | ✘ | URL of the video file. Required when me
 source_user_id | ```string``` | | ✔ | ✘ |
 width_ratio | ```string``` | | ✔ | ✘ | Tile width ratio to be used as a ratio vs width_ratio as width to height. Positive numeric value. Required when media type is "html"
 height_ratio | ```string``` | | ✔ | ✘ | Tile width ratio to be used as a ratio vs height_ratio as width to height. Positive numeric value. Required when media type is "html"
+image | ```string``` | | ✔ | ✘ | Full-sized image URL
 image_url | ```string``` | | ✔ | ✘ | Full-sized image URL
 image_small_url | ```string``` | | ✔ | ✘ | Small image URL (ideally under to 300x300px, or 600x600px for retina)
 image_medium_url | ```string``` | | ✔ | ✘ | Medium image URL (ideally under to 600x600px, or 1200x1200px for retina)
