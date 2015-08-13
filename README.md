@@ -320,7 +320,7 @@ order | ```integer``` | | ✔ | ✔ | order of filter in Social hub
 sort | ```enum``` | ```Filter::SORT_LATEST``` <br /> ```Filter::SORT_GREATEST``` <br /> ```Filter::SORT_MOST_VOTES``` | ✔ | ✔ | filter sorting type
 networks | ```enum[]``` | ```Stackla::NETWORK_TWITTER``` <br /> ```Stackla::NETWORK_FACEBOOK``` <br /> ```Stackla::NETWORK_INSTAGRAM``` <br /> ```Stackla::NETWORK_YOUTUBE``` <br /> ```Stackla::NETWORK_GPLUS``` <br /> ```Stackla::NETWORK_FLICKR``` <br /> ```Stackla::NETWORK_PINTEREST``` <br /> ```Stackla::NETWORK_TUMBLR``` <br /> ```Stackla::NETWORK_RSS``` <br /> ```Stackla::NETWORK_ECAL``` <br /> ```Stackla::NETWORK_STACKLA``` <br /> ```Stackla::NETWORK_WEIBO``` | ✔ | ✔ | filtering network(s)
 tags | ```Tag[]``` | | ✔ | ✔ | filtering tag(s)
-media | ```enum[]``` | ```Filter::MEDIA_TEXT``` <br /> ```Filter:MEDIA_IMAGE``` <br /> ```Filter::MEDIA_VIDEO``` <br /> ```Filter::MEDIA_HTML``` | ✔ | ✔ | filtering media(s)
+media | ```enum[]``` | ```Filter::MEDIA_TEXT``` <br /> ```Filter::MEDIA_IMAGE``` <br /> ```Filter::MEDIA_VIDEO``` <br /> ```Filter::MEDIA_HTML``` | ✔ | ✔ | filtering media(s)
 
 
 ##### Methods #####
