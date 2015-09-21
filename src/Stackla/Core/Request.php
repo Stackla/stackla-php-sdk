@@ -6,6 +6,7 @@ use \Stackla\Core\Credentials;
 use \Guzzle\Http\Client;
 use \Guzzle\Http\Exception\ClientErrorResponseException;
 use \Guzzle\Http\Exception\BadResponseException;
+use \Guzzle\Http\Exception\CurlException;
 
 class Request implements RequestInterface
 {
@@ -242,25 +243,31 @@ class Request implements RequestInterface
         }
 
         switch ($this->response->getStatusCode()) {
-            case $this->response->getStatusCode() >= 500:
-                throw new \Exception(sprintf("Server return %s error code.Server error: An error on the server prohibited a successful response; please contact support. %s", $this->response->getStatusCode(), $this->response->getBody(true)));
-            case 404:
-                throw new \Exception(sprintf("Server return %s error code. Invalid resource: Invalid resource specified or resource not found", $this->response->getStatusCode()));
-            case 403:
-                throw new \Exception(sprintf("Server return %s error code. Rate limit exceeded: Too many requests in the current time window", $this->response->getStatusCode()));
-            case 401:
-                throw new \Exception(sprintf("Server return %s error code. Unauthorized: Authentication credentials invalid or not authorised to access resource", $this->response->getStatusCode()));
+            case 200:
+                return $this->response->getBody(true);
+                break;
             case 400:
                 throw new \Exception(sprintf("Server return %s error code. Bad request: The request could not be understood. %s", $this->response->getStatusCode(), $this->response->getBody(true)));
-
+                return false;
+                break;
+            case 401:
+                throw new \Exception(sprintf("Server return %s error code. Unauthorized: Authentication credentials invalid or not authorised to access resource", $this->response->getStatusCode()));
+                return false;
+                break;
+            case 403:
+                throw new \Exception(sprintf("Server return %s error code. Rate limit exceeded: Too many requests in the current time window", $this->response->getStatusCode()));
+                return false;
+                break;
+            case 404:
+                throw new \Exception(sprintf("Server return %s error code. Invalid resource: Invalid resource specified or resource not found", $this->response->getStatusCode()));
+                return false;
+                break;
+            default:
+                throw new \Exception(sprintf("Server return %s error code.Server error: An error on the server prohibited a successful response; please contact support. %s", $this->response->getStatusCode(), $this->response->getBody(true)));
                 return false;
                 break;
         }
 
-        /**
-         * @var Guzzle\Http\EntityBody $data
-         */
-        return $this->response->getBody(true);
     }
 
     /**

@@ -300,7 +300,7 @@ $term = $stack->instance('term');
 try {
     $term->update();
 } catch (\Exception $e) {
-    print_r($term->getErrors());
+    echo $e->getMessage();
 }
 ```
 
