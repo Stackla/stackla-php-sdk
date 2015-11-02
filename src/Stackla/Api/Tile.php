@@ -346,7 +346,7 @@ class Tile extends StacklaModel implements TileInterface
      *
      * @var string
      *
-     * @Assert\Choice(choices={"published", "queue", "disabled"})
+     * @Assert\Choice(choices={"published", "queued", "disabled"})
      */
     protected $_status;
 
