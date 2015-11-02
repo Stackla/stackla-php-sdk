@@ -8,7 +8,8 @@ interface TileInterface
      * Visibility options
      */
     const STATUS_ENABLED    = 'published';
-    const STATUS_QUEUE      = 'queue';
+    const STATUS_QUEUE      = 'queued'; // deprecated
+    const STATUS_QUEUED     = 'queued';
     const STATUS_DISABLED   = 'disabled';
 
     /**
