@@ -569,12 +569,10 @@ class Tile extends StacklaModel implements TileInterface
 
     public function create()
     {
-        if (empty($this->term_id)) {
-            throw new \Exception('Tile creation require Stackla type term id ');
+        $endpoint = sprintf("%s?", $this->endpoint);
+        if(isset($this->term_id) && !is_null($this->term_id)) {
+            $endpoint = sprintf("%s?term_id=%s", $this->endpoint, $this->term_id);
         }
-
-        $endpoint = sprintf("%s?term_id=%s", $this->endpoint, $this->term_id);
-
         $data = $this->toArray(true);
         unset($data['term_id']);
 
