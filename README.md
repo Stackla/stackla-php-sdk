@@ -351,6 +351,7 @@ Property | type | value | Post | Put | Definition
 id | ```string``` |  | ✘ | ✘ | Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose the ID as a 24-byte string
 sta_feed_id | ```string``` | | ✔ | ✘ | Globally unique ID to be used for this post (often referencing external ID)
 guid | ```string``` | | ✔ | ✘ | Globally unique ID to be used for this post (often referencing external ID)
+term_id | ```integer``` | | ✔ | ✘ | Associated term (optional)
 name | ```string``` | | ✔ | ✘ | Display name to be used for the author
 avatar | ```string``` | | ✔ | ✘ | URL to be used as the post author's avatar
 title | ```string``` | | ✔ | ✘ | Tile title to accompany the message, often used for video tiles
