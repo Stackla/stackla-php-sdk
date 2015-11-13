@@ -570,7 +570,9 @@ class Tile extends StacklaModel implements TileInterface
     public function create()
     {
         $endpoint = sprintf("%s?", $this->endpoint);
-
+        if(isset($this->term_id) && !is_null($this->term_id)) {
+            $endpoint = sprintf("%s?term_id=%s", $this->endpoint, $this->term_id);
+        }
         $data = $this->toArray(true);
         unset($data['term_id']);
 
