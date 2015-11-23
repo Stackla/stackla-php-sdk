@@ -23,8 +23,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
     {
         $widget = $this->stack->instance('Widget');
         $widget->name = 'Test widget';
-        $widget->type = Widget::TYPE_FLUID;
-        $widget->type_style = Widget::STYLE_VERTICAL_FLUID;
+        $widget->type_style = Widget::STYLE_BASE_WATERFALL;
         $widget->filter_id = (int) DEFAULT_FILTER_ID;
 
         $validations = $widget->validate();
@@ -38,7 +37,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
         $res = $widget->create();
 
         if ($res) {
-            $this->assertGreaterThan(0, $widget->id, "Tag created without any ID");
+            $this->assertGreaterThan(0, $widget->id, "Widget created without any ID");
             $this->assertEquals(0, count($widget->errors), "Error: " . json_encode($widget->errors));
         }
 

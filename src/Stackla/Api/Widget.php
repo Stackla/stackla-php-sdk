@@ -28,6 +28,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Widget extends StacklaModel implements WidgetInterface
 {
     /**
+     * Widget type style group
+     */
+    public static $FLUID_TYPE_STYLES = array(
+        "fluid", "horizontal-fluid", "base_waterfall", "base_carousel"
+    );
+    public static $STATIC_TYPE_STYLES = array(
+        "carousel", "main", "slideshow", "auto", "base_feed", "base_billboard", "base_slideshow"
+    );
+
+    /**
      * Endpoints
      *
      * @var string
@@ -188,7 +198,7 @@ class Widget extends StacklaModel implements WidgetInterface
      *
      * @var string
      *
-     * @Assert\Choice(choices={"fluid", "horizontal-fluid", "carousel", "main", "slideshow", "auto"})
+     * @Assert\Choice(choices={"fluid", "horizontal-fluid", "carousel", "main", "slideshow", "auto", "base_waterfall", "base_carousel", "base_feed", "base_billboard", "base_slidehow"})
      * @Assert\NotBlank()
      * @Assert\NotNull()
      * @Assert\Type(type="string")
@@ -284,6 +294,11 @@ class Widget extends StacklaModel implements WidgetInterface
         $style['style'] = $type_style;
         $this->style = $style;
 
+        if (in_array($type_style, self::$FLUID_TYPE_STYLES)) {
+            $this->type = self::TYPE_FLUID;
+        } elseif (in_array($type_style, self::$STATIC_TYPE_STYLES)) {
+            $this->type = self::TYPE_STATIC;
+        }
         return $this;
     }
 
@@ -334,7 +349,54 @@ class Widget extends StacklaModel implements WidgetInterface
 
     public function setDefaultValue()
     {
-        $this->max_tile_width || $this->max_tile_width = 320;
+        $style = $this->style;
+        if (empty($style)) $style = array();
+        switch ($this->type_style) {
+            case self::STYLE_BASE_WATERFALL:
+            case self::STYLE_VERTICAL_FLUID:
+                $style['max_tile_width'] = 365;
+                break;
+            case self::STYLE_BASE_CAROUSEL:
+            case self::STYLE_HORIZONTAL_FUILD:
+                $style['tiles_per_page'] = 15;
+                $style['widget_height'] = 300;
+                break;
+            case self::STYLE_BASE_BILLBOARD:
+            case self::STYLE_CAROUSEL:
+                $style['width'] = 970;
+                $style['height'] = 300;
+                $style['margin'] = 7;
+                $style['rows'] = 10;
+                $style['columns'] = 2;
+                $style['tileWidth'] = 300;
+                $style['tileHeight'] = 300;
+                $style['tiles_per_page'] = 9;
+                break;
+            case self::STYLE_BASE_FEED:
+            case self::STYLE_SCROLL:
+                $style['width'] = 970;
+                $style['height'] = 600;
+                $style['margin'] = 15;
+                $style['rows'] = 3;
+                $style['columns'] = 3;
+                $style['tileWidth'] = 251;
+                $style['tileHeight'] = 251;
+                $style['tiles_per_page'] = 9;
+                break;
+            case self::STYLE_BASE_SLIDESHOW:
+            case self::STYLE_SLIDESHOW:
+                $style['auto_scroll'] = 1;
+                $style['width'] = 970;
+                $style['height'] = 600;
+                $style['margin'] = 0;
+                $style['rows'] = 1;
+                $style['columns'] = 1;
+                $style['tileWidth'] = 970;
+                $style['tileHeight'] = 600;
+                $style['tiles_per_page'] = 15;
+                break;
+        }
+        $this->style = $style;
     }
 
     public function create()

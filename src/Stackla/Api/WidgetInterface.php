@@ -19,6 +19,11 @@ interface WidgetInterface
     const STYLE_SCROLL              = 'main'; // static type only
     const STYLE_SLIDESHOW           = 'slideshow'; // static type only
     const STYLE_AUTO                = 'auto'; // static type only
+    const STYLE_BASE_WATERFALL      = 'base_waterfall'; // fluid type only
+    const STYLE_BASE_CAROUSEL       = 'base_carousel'; // fluid type only
+    const STYLE_BASE_FEED           = 'base_feed'; // fixed type only
+    const STYLE_BASE_BILLBOARD      = 'base_billboard'; // fixed type only
+    const STYLE_BASE_SLIDESHOW      = 'base_slideshow'; // fixed type only
 
     /**
      * This method will create a new widget that is cloned from current Widget
