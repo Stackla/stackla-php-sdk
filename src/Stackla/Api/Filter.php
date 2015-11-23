@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property \Stackla\Api\Tag[]     $tags
  * @property string[]               $media
  * @property \Stackla\Api\Location  $geofence
+ * @property string                 $filterByClaimed
  *
  * @return
  */
@@ -134,6 +135,15 @@ class Filter extends StacklaModel implements FilterInterface
      * })
      */
     protected $_media;
+
+    /**
+     * Filter name.
+     *
+     * @var string
+     *
+     * @Assert\Choice(choices={"no", "claimed_only", "unclaimed_only"})
+     */
+    protected $_filterByClaimed;
 
     /**
      * Media
