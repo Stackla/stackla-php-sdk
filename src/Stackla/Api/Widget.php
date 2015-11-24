@@ -349,17 +349,44 @@ class Widget extends StacklaModel implements WidgetInterface
 
     public function setDefaultValue()
     {
+        $defaultConfig = array(
+            'tile_options' => array(
+                'show_tags' => '0',
+                'show_votes' => '0',
+                'show_likes' => '0',
+                'show_dislikes' => '0',
+                'show_comments' => '0',
+                'show_shopspots' => '0'
+            ),
+            'lightbox' => array(
+                'layout' => 'portrait',
+                'show_additional_info' => '1',
+                'show_sharing' => '0',
+                'sharing_text' => '',
+                'sharing_title' => '',
+                'show_comments' => '0',
+                'post_comments' => '0',
+                'show_products' => '0',
+                'show_shopspots' => '0'
+            )
+        );
         $style = $this->style;
+        $config = $this->config;
         if (empty($style)) $style = array();
+        if (empty($config)) $config = array('tile_options' => array(), 'lightbox' => array());
         switch ($this->type_style) {
             case self::STYLE_BASE_WATERFALL:
             case self::STYLE_VERTICAL_FLUID:
                 $style['max_tile_width'] = 365;
+                $config['tile_options'] = array_merge($defaultConfig['tile_options'], $config['tile_options']);
+                $config['lightbox'] = array_merge($defaultConfig['lightbox'], $config['lightbox']);
                 break;
             case self::STYLE_BASE_CAROUSEL:
             case self::STYLE_HORIZONTAL_FUILD:
                 $style['tiles_per_page'] = 15;
                 $style['widget_height'] = 300;
+                $config['tile_options'] = array_merge($defaultConfig['tile_options'], $config['tile_options']);
+                $config['lightbox'] = array_merge($defaultConfig['lightbox'], $config['lightbox']);
                 break;
             case self::STYLE_BASE_BILLBOARD:
             case self::STYLE_CAROUSEL:
@@ -397,6 +424,7 @@ class Widget extends StacklaModel implements WidgetInterface
                 break;
         }
         $this->style = $style;
+        $this->config = $config;
     }
 
     public function create()
