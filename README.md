@@ -3,7 +3,7 @@ Welcome to the Stackla PHP SDK GitHub repository!
 
 This SDK is intended for PHP developers to enable them to integrate Stackla RESTful APIs into their applications with greater ease. You can find more information on working with Stackla APIs on the [Stackla Developer Portal](http://developer.stackla.com/).
 
-We are continously working on improving both the SDK and the documentation around it, so please feel free to give us feedback and any reports of issues to [platform@stackla.com](mailto:platform@stackla.com).
+We are continuously working on improving both the SDK and the documentation around it, so please feel free to give us feedback and any reports of issues to [platform@stackla.com](mailto:platform@stackla.com).
 
 ## System requirements ##
 * PHP >=5.3.3
@@ -488,3 +488,5 @@ delete*** | - | - | - | widget object / self or false
 * _delete_ will not work if the widget has child widget.
 
 ----------------
+
+[Error Handling](doc/error_handling.md)
