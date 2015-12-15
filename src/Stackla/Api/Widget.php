@@ -377,19 +377,60 @@ class Widget extends StacklaModel implements WidgetInterface
         switch ($this->type_style) {
             case self::STYLE_BASE_WATERFALL:
             case self::STYLE_VERTICAL_FLUID:
+                $style['enable_custom_tiles_per_page'] = '';
+                $style['tiles_per_page'] = 15;
+                $style['click_through_url'] = '%5BEXPAND%5D';
+                $style['polling_frequency'] = '30';
+                $style['parent_page_secret_key'] = '';
+                $style['enable_scrolling'] = '0';
+                $style['text_tile_background'] = 'ffffff';
+                $style['text_tile_font_color'] = '666666';
+                $style['text_tile_font_size'] = 24;
+                $style['text_tile_user_name_font_color'] = '333333';
+                $style['text_tile_user_name_font_size'] = 18;
+                $style['text_tile_user_handle_font_color'] = '333333';
+                $style['text_tile_user_handle_font_size'] = 18;
+                $style['margin'] = 0;
                 $style['max_tile_width'] = 365;
+                $style['widget_background'] = "";
+                $style['widget_loading_image'] = "/media/images/widget/loading.gif";
                 $config['tile_options'] = array_merge($defaultConfig['tile_options'], $config['tile_options']);
                 $config['lightbox'] = array_merge($defaultConfig['lightbox'], $config['lightbox']);
                 break;
             case self::STYLE_BASE_CAROUSEL:
             case self::STYLE_HORIZONTAL_FUILD:
+                $style['enable_custom_tiles_per_page'] = '';
                 $style['tiles_per_page'] = 15;
+                $style['click_through_url'] = '%5BEXPAND%5D';
+                $style['polling_frequency'] = '30';
+                $style['parent_page_secret_key'] = '';
+                $style['widget_background'] = "";
+                $style['text_tile_background'] = '';
+                $style['text_tile_font_color'] = '666666';
+                $style['text_tile_source_color'] = '333333';
+                $style['margin'] = 7;
                 $style['widget_height'] = 300;
+                $style['widget_loading_image'] = "/media/images/widget/loading.gif";
                 $config['tile_options'] = array_merge($defaultConfig['tile_options'], $config['tile_options']);
                 $config['lightbox'] = array_merge($defaultConfig['lightbox'], $config['lightbox']);
                 break;
             case self::STYLE_BASE_BILLBOARD:
             case self::STYLE_CAROUSEL:
+                $style['navigation'] = 'click';
+                $style['click_through_url'] = '%5BTILE_URL%5D';
+                $style['polling_frequency'] = '30';
+                $style['widget_background'] = "";
+                $style['arrow_color'] = "333333";
+                $style['text_tile_user_name_font_color'] = '666666';
+                $style['text_tile_user_name_font_size'] = 16;
+                $style['text_tile_user_handle_font_color'] = '666666';
+                $style['text_tile_user_handle_font_size'] = 13;
+                $style['text_tile_background'] = 'ffffff';
+                $style['text_tile_font_color'] = '666666';
+                $style['text_tile_font_size'] = 17;
+                $style['image_tile_background'] = 'ffffff';
+                $style['image_tile_font_color'] = 'ffffff';
+                $style['image_tile_font_size'] = 17;
                 $style['width'] = 970;
                 $style['height'] = 300;
                 $style['margin'] = 7;
@@ -398,21 +439,52 @@ class Widget extends StacklaModel implements WidgetInterface
                 $style['tileWidth'] = 300;
                 $style['tileHeight'] = 300;
                 $style['tiles_per_page'] = 9;
+                $style['widget_loading_image'] = "/media/images/widget/loading.gif";
                 break;
             case self::STYLE_BASE_FEED:
             case self::STYLE_SCROLL:
+                $style['navigation'] = 'click';
+                $style['click_through_url'] = '%5BTILE_URL%5D';
+                $style['polling_frequency'] = '30';
+                $style['widget_background'] = "ffffff";
+                $style['arrow_color'] = "000000";
+                $style['text_tile_user_name_font_color'] = '666666';
+                $style['text_tile_user_name_font_size'] = 16;
+                $style['text_tile_user_handle_font_color'] = '666666';
+                $style['text_tile_user_handle_font_size'] = 13;
+                $style['text_tile_background'] = 'ffffff';
+                $style['text_tile_font_color'] = '666666';
+                $style['text_tile_font_size'] = 18;
+                $style['image_tile_background'] = 'ffffff';
+                $style['image_tile_font_color'] = 'ffffff';
+                $style['image_tile_font_size'] = 18;
                 $style['width'] = 970;
                 $style['height'] = 600;
                 $style['margin'] = 15;
                 $style['rows'] = 3;
                 $style['columns'] = 3;
-                $style['tileWidth'] = 251;
-                $style['tileHeight'] = 251;
+                $style['tileWidth'] = 253;
+                $style['tileHeight'] = 253;
                 $style['tiles_per_page'] = 9;
+                $style['widget_loading_image'] = "/media/images/widget/loading.gif";
                 break;
             case self::STYLE_BASE_SLIDESHOW:
             case self::STYLE_SLIDESHOW:
-                $style['auto_scroll'] = 1;
+                $style['click_through_url'] = '%5BTILE_URL%5D';
+                $style['polling_frequency'] = '30';
+                $style['widget_background'] = "ffffff";
+                $style['arrow_color'] = "ffffff";
+                $style['arrow_color'] = "333333";
+                $style['text_tile_user_name_font_color'] = '666666';
+                $style['text_tile_user_name_font_size'] = 24;
+                $style['text_tile_user_handle_font_color'] = '666666';
+                $style['text_tile_user_handle_font_size'] = 20;
+                $style['text_tile_background'] = 'ffffff';
+                $style['text_tile_font_color'] = '666666';
+                $style['text_tile_font_size'] = 24;
+                $style['image_tile_background'] = 'ffffff';
+                $style['image_tile_font_color'] = 'ffffff';
+                $style['image_tile_font_size'] = 24;
                 $style['width'] = 970;
                 $style['height'] = 600;
                 $style['margin'] = 0;
@@ -421,6 +493,7 @@ class Widget extends StacklaModel implements WidgetInterface
                 $style['tileWidth'] = 970;
                 $style['tileHeight'] = 600;
                 $style['tiles_per_page'] = 15;
+                $style['widget_loading_image'] = "/media/images/widget/loading.gif";
                 break;
         }
         $this->style = $style;
