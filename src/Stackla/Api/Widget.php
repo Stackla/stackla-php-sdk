@@ -417,7 +417,7 @@ class Widget extends StacklaModel implements WidgetInterface
             case self::STYLE_BASE_BILLBOARD:
             case self::STYLE_CAROUSEL:
                 $style['navigation'] = 'click';
-                $style['click_through_url'] = '%5BTILE_URL%5D';
+                $style['click_through_url'] = '%5BORIGINAL_URL%5D';
                 $style['polling_frequency'] = '30';
                 $style['widget_background'] = "";
                 $style['arrow_color'] = "333333";
@@ -444,7 +444,7 @@ class Widget extends StacklaModel implements WidgetInterface
             case self::STYLE_BASE_FEED:
             case self::STYLE_SCROLL:
                 $style['navigation'] = 'click';
-                $style['click_through_url'] = '%5BTILE_URL%5D';
+                $style['click_through_url'] = '%5BORIGINAL_URL%5D';
                 $style['polling_frequency'] = '30';
                 $style['widget_background'] = "ffffff";
                 $style['arrow_color'] = "000000";
@@ -470,7 +470,7 @@ class Widget extends StacklaModel implements WidgetInterface
                 break;
             case self::STYLE_BASE_SLIDESHOW:
             case self::STYLE_SLIDESHOW:
-                $style['click_through_url'] = '%5BTILE_URL%5D';
+                $style['click_through_url'] = '%5BORIGINAL_URL%5D';
                 $style['polling_frequency'] = '30';
                 $style['widget_background'] = "ffffff";
                 $style['arrow_color'] = "ffffff";
