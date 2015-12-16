@@ -466,7 +466,7 @@ class Widget extends StacklaModel implements WidgetInterface
                     'text_tile_font_color' => '666666',
                     'text_tile_font_size' => 18,
                     'image_tile_background' => 'ffffff',
-                    'image_tile_font_color' => 'ffffff',
+                    'image_tile_font_color' => '666666',
                     'image_tile_font_size' => 18,
                     'width' => 970,
                     'height' => 600,
