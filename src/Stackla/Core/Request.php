@@ -2,11 +2,11 @@
 
 namespace Stackla\Core;
 
-use \Stackla\Core\Credentials;
-use \Guzzle\Http\Client;
-use \Guzzle\Http\Exception\ClientErrorResponseException;
-use \Guzzle\Http\Exception\BadResponseException;
-use \Guzzle\Http\Exception\CurlException;
+use Guzzle\Http\EntityBodyInterface;
+use Guzzle\Http\Client;
+use Guzzle\Http\Exception\ClientErrorResponseException;
+use Guzzle\Http\Exception\BadResponseException;
+use Stackla\Exception\ApiException;
 
 class Request implements RequestInterface
 {
@@ -30,13 +30,13 @@ class Request implements RequestInterface
 
     /**
      * Response result placeholder
-     * @var \Guzzle\Message\Response
+     * @var \Guzzle\Http\Message\Response
      */
     protected $response;
 
     /**
      * Request placeholder
-     * @var \Guzzle\Message\Request
+     * @var \Guzzle\Http\Message\Request
      */
     protected $request;
 
@@ -48,9 +48,11 @@ class Request implements RequestInterface
 
     private $querySeparator = '&';
 
+    protected $apiKey;
+
     /**
      *
-     * @var Guzzle\Http\Message\Response
+     * @var \Guzzle\Http\Message\Response
      */
     private $client;
 
@@ -60,7 +62,7 @@ class Request implements RequestInterface
         $this->stack = $stack;
         $this->credentials = $credentials;
         $this->client = new Client();
-        if (class_exists("\Monolog\Logger")) {
+        if (class_exists("\\Monolog\\Logger")) {
             $this->logger = new \Monolog\Logger(get_class($this));
             $this->logger->pushHandler(new \Monolog\Handler\StreamHandler(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'stackla-request.log', \Monolog\Logger::INFO));
         }
@@ -169,13 +171,12 @@ class Request implements RequestInterface
     /**
      * Making request using Guzzle
      *
-     * @param string    $method     Type of request, iether POST, GET, PUT or DELETE
-     * @param string    $endpoint   The operation / task for API
-     * @param array     $data       The parameter need to be passed
-     * @param array     $options    The options like header, body, etc
-     *
-     * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
-     *                                          or return json object
+     * @param string $method   Type of request, either POST, GET, PUT or DELETE
+     * @param string $endpoint The operation / task for API
+     * @param array  $data     The parameter need to be passed
+     * @param array  $options  The options like header, body, etc
+     * @return EntityBodyInterface|string
+     * @throws \Exception
      */
     private function sendRequest($method, $endpoint, array $data = array(), array $options = array())
     {
@@ -242,30 +243,40 @@ class Request implements RequestInterface
             }
         }
 
-        switch ($this->response->getStatusCode()) {
+        $statusCode = $this->response->getStatusCode();
+        switch ($statusCode) {
             case 200:
                 return $this->response->getBody(true);
-                break;
             case 400:
-                throw new \Exception(sprintf("Server return %s error code. Bad request: The request could not be understood. %s", $this->response->getStatusCode(), $this->response->getBody(true)));
-                return false;
-                break;
+                throw ApiException::create(
+                    sprintf("Server return %s error code. Bad request: The request could not be understood. %s", $this->response->getStatusCode(), $this->response->getBody(true)),
+                    $statusCode,
+                    $this->response->getBody(true)
+                );
             case 401:
-                throw new \Exception(sprintf("Server return %s error code. Unauthorized: Authentication credentials invalid or not authorised to access resource", $this->response->getStatusCode()));
-                return false;
-                break;
+                throw ApiException::create(
+                    sprintf("Server return %s error code. Unauthorized: Authentication credentials invalid or not authorised to access resource", $this->response->getStatusCode()),
+                    $statusCode,
+                    $this->response->getBody(true)
+                );
             case 403:
-                throw new \Exception(sprintf("Server return %s error code. Rate limit exceeded: Too many requests in the current time window", $this->response->getStatusCode()));
-                return false;
-                break;
+                throw ApiException::create(
+                    sprintf("Server return %s error code. Rate limit exceeded: Too many requests in the current time window", $this->response->getStatusCode()),
+                    $statusCode,
+                    $this->response->getBody(true)
+                );
             case 404:
-                throw new \Exception(sprintf("Server return %s error code. Invalid resource: Invalid resource specified or resource not found", $this->response->getStatusCode()));
-                return false;
-                break;
+                throw ApiException::create(
+                    sprintf("Server return %s error code. Invalid resource: Invalid resource specified or resource not found", $this->response->getStatusCode()),
+                    $statusCode,
+                    $this->response->getBody(true)
+                );
             default:
-                throw new \Exception(sprintf("Server return %s error code.Server error: An error on the server prohibited a successful response; please contact support. %s", $this->response->getStatusCode(), $this->response->getBody(true)));
-                return false;
-                break;
+                throw ApiException::create(
+                    sprintf("Server return %s error code.Server error: An error on the server prohibited a successful response; please contact support. %s", $this->response->getStatusCode(), $this->response->getBody(true)),
+                    $statusCode,
+                    $this->response->getBody(true)
+                );
         }
 
     }
