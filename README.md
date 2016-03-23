@@ -91,6 +91,8 @@ if ($response === false) {
 
 ```
 
+[More details](tests/callback)
+
 
 #### API Key (api_key) ####
 *This method is being deprecated. Please contact your customer representative if you are using or intend to use this method.*

@@ -1,11 +1,6 @@
 # OAuth2
 
-This is the example on how to generate OAuth2 access token and implementation in stackla.
-
-Create you app using stackla admin portal:
-```
-https://my.stackla.com/[YOUR_STACK]/admin/stacklaapi/manage_clients
-```
+This is an example of how to generate an OAuth2 access token and implement it in Stackla.
 
 Before running any test, please copy config.php.dist to config.php in tests/callback and change the value to match your stack.
 ```php
@@ -17,12 +12,12 @@ $client_secret = 'YOUR_CLIENT_SECRET';
 $callback = 'http://localhost:8000/callback.php';
 ```
 
-Please run, to create simple webserver:
+Please run the following to create a simple webserver:
 ```sh
 $ php -S localhost:8000
 ```
 
-try run this url in browser to authenticate your app:
+Then run this url in your browser to authenticate your app:
 ```
 http://localhost:8000/access.php
 ```

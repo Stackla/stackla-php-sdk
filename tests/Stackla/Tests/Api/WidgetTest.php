@@ -69,7 +69,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
         $widget = $widgetRes->duplicate();
 
         $this->assertNotEquals($widget->id, $widgetRes->id, "The clone ID is same to the source ID");
-        $this->assertEquals($widget->name, "CLONE:" . $widgetRes->name, "The cloned widget name should exactly the same with the source widget name");
+        $this->assertEquals($widget->name, $widgetRes->name . " (Clone)", "The cloned widget name should exactly the same with the source widget name");
 
         if ($widget) {
             $widget->delete();
