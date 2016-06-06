@@ -5,6 +5,9 @@
 # Ignore swp file
 *.swp
 
+# Ignore npm modules
+node_modules/
+
 # Ignore potentially sensitive phpunit file
 phpunit.xml
 
