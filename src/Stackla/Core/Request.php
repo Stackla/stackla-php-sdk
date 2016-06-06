@@ -181,7 +181,7 @@ class Request implements RequestInterface
     private function sendRequest($method, $endpoint, array $data = array(), array $options = array())
     {
         $uri = $this->buildUri($endpoint);
-        if ($method === "GET" ||$method === "PUT") {
+        if ($method === "GET" || $method === "PUT") {
             $uri = $this->buildUri($endpoint, $data);
         }
 

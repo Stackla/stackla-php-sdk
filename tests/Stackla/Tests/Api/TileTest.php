@@ -155,7 +155,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $tileTags = $tile2->tags;
 
         $this->assertGreaterThan(0, count($tile2->tags), 'No tag assosiated to this tile');
-        $this->assertEquals((int) DEFAULT_TAG_ID, $tileTags[0]->id, 'Tag ID is not the same');
+        $this->assertEquals((int) DEFAULT_TAG_ID, $tileTags[count($tileTags) - 1]->id, 'Tag ID is not the same');
     }
 
     /**
@@ -164,6 +164,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
     public function testDeleteTag(Tile $tileRes)
     {
         $sta_feed_id = $tileRes->sta_feed_id;
+        $tagCount = count($tileRes->tags);
         $tag = $this->stack->instance('tag', DEFAULT_TAG_ID);
         $tile = $this->stack->instance('tile');
         $tile->getByGuid($sta_feed_id);
@@ -173,7 +174,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $tile2 = $this->stack->instance('tile');
         $tile2->getByGuid($sta_feed_id);
 
-        $this->assertEquals(0, count($tile2->tags), 'No tag assosiated to this tile');
+        $this->assertEquals($tagCount, count($tile2->tags), 'Tag assosiated to this tile has not been deleted');
     }
 
     /**

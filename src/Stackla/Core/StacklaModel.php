@@ -166,15 +166,10 @@ class StacklaModel implements \IteratorAggregate, \Countable
      */
     public function __get($key)
     {
-        // if (ModelAccessorValidator::validate($this, $this->convertToCamelCase($key))) {
-        //     $getter = "get".$this->convertToCamelCase($key);
-        //     $this->$getter();
-        // } else
         $camelCase = $this->convertToCamelCase($key);
         if ($this->__isset($key)) {
             return $this->_propMap[$key];
         } elseif (ModelAccessorValidator::validate($this, $camelCase)) {
-            $setter = "set{$camelCase}";
             $annots = ReflectionUtil::propertyAnnotations($this, $camelCase, 'set');
             if (isset($annots['uses'])) {
                 $getter = "get{$camelCase}";
@@ -825,8 +820,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
             // loop for all constraints / rules
             foreach($constraints as $constraint) {
                 $class = new \ReflectionObject($constraint);
-                $constraintName=$class->getShortName();
-                $constraintParameter=null;
+                $constraintName = $class->getShortName();
                 switch ($constraintName) {
                     case "NotBlank":
                         $param="notBlank";

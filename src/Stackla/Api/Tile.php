@@ -504,7 +504,7 @@ class Tile extends StacklaModel implements TileInterface
             $this->tags = array($tag);
         } else {
             // avoid duplication
-            $tagExist = true;
+            $tagExist = false;
             foreach ($this->tags as $_tag) {
                 if ($_tag->id == $tag->id) {
                     $tagExist = true;
@@ -529,14 +529,14 @@ class Tile extends StacklaModel implements TileInterface
     public function deleteTag(\Stackla\Api\Tag $tag)
     {
         if ($this->tags) {
-            $tagExist = true;
+            $tagExist = false;
             foreach ($this->tags as $index => $_tag) {
                 if ($_tag->id == $tag->id) {
                     $tagExist = $index;
                     break;
                 }
             }
-            if (!$tagExist) {
+            if ($tagExist !== false) {
                 $tags = $this->tags;
                 array_splice($tags, $tagExist, 1);
                 $this->tags = $tags;
