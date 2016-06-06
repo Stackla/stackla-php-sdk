@@ -1,0 +1,13 @@
+{
+  "name": "stackla-sdk",
+  "version": "0.1.0",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-livereload": "^3.8.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-shell": "^0.3.0"
+  },
+  "main": "gulpfile.js",
+  "author": "",
+  "license": "ISC"
+}
