@@ -3,9 +3,9 @@
     "description": "Stackla SDK API",
     "require": {
         "guzzle/guzzle": "3.9",
-        "symfony/validator": "2.7.1",
-        "doctrine/annotations": "1.2.6",
-        "doctrine/cache": "1.4.1",
+        "symfony/validator": "^2.7",
+        "doctrine/annotations": "^1.2",
+        "doctrine/cache": "^1.6",
         "php": ">=5.3.3"
     },
     "require-dev": {
