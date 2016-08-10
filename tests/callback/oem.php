@@ -61,7 +61,10 @@ if ($response && !empty($response['data'])) {
 
         (function (d) {
             // embed.js CDN
-            var cdn = window.StacklaOemConfig ? window.StacklaOemConfig.cdn : 'my.stackla.com';
+            var containerEls = document.querySelectorAll('.stackla-oem-iframe');
+            var containerEl = containerEls[0];
+            var stackName = containerEl.getAttribute('data-stack-name');
+            var cdn = stackName + '.' + (window.StacklaOemConfig ? window.StacklaOemConfig.cdn : 'my-oem.stackla.com');
             var t = d.createElement('script');
             t.type = 'text/javascript';
             t.src = 'https://' + cdn + '/media/js/common/oem_iframe_embed.js';
