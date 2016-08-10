@@ -11,7 +11,7 @@ echo "======\n";
 if ($response === false) {
     echo "Failed creating access token.\n";
 } else {
-    file_put_contents('access_token.txt', $credentials->token);
+    file_put_contents('.access_token', $credentials->token);
     echo "your access token is '{$credentials->token}'\n";
 }
 echo "======";
