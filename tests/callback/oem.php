@@ -47,9 +47,9 @@ if ($response && !empty($response['data'])) {
         </div>
         <div style="width:20%; max-width: 20%; display: inline-block;float: left;">
             <ul>
-                <li><a class="stackla-menu" href="#content">Content</a></li>
-                <li><a class="stackla-menu" href="#filters">Filters</a></li>
-                <li><a class="stackla-menu" href="#tags">Tags</a></li>
+                <li><a class="stackla-menu" href="#content" onClick="window.Stackla.EmbeddedAdminUI.navigateTo('/allcontent/view/-1')">Content</a></li>
+                <li><a class="stackla-menu" href="#filters" onClick="window.Stackla.EmbeddedAdminUI.navigateTo('/filters')">Filters</a></li>
+                <li><a class="stackla-menu" href="#tags" onClick="window.Stackla.EmbeddedAdminUI.navigateTo('/tags')">Tags</a></li>
             </ul>
         </div>
         <div class="stackla-oem-iframe" data-stack-name="<?= $stack ?>" data-session-id="<?= $sessionId ?>"></div>
@@ -67,7 +67,7 @@ if ($response && !empty($response['data'])) {
             var cdn = stackName + '.' + (window.StacklaOemConfig ? window.StacklaOemConfig.cdn : 'my-oem.stackla.com');
             var t = d.createElement('script');
             t.type = 'text/javascript';
-            t.src = 'https://' + cdn + '/media/js/common/oem_iframe_embed.js';
+            t.src = 'https://' + cdn + '/media/js/common/oem_embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(t);
         }(document));
         </script>
