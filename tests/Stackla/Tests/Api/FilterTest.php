@@ -12,6 +12,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
     private $stack;
+
     public function __construct()
     {
         $this->credentials = new Credentials(API_HOST, ACCESS_TOKEN, API_STACK);
@@ -21,6 +22,13 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         $tag = $this->stack->instance('tag', DEFAULT_TAG_ID, false);
 
         $filter = $this->stack->instance('filter');
@@ -39,7 +47,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
         if (count($validations)) {
             foreach ($validations as $validation) {
-                echo $validation['property'] . " -- " . $validation['message'] . "\n";
+                echo $validation['property']." -- ".$validation['message']."\n";
             }
             throw new \Exception("invalid properties");
         }
@@ -48,12 +56,12 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
         if ($res) {
             $this->assertGreaterThan(0, $filter->id, "Filter created without any ID");
-            $this->assertEquals(0, count($filter->errors), "Error: " . json_encode($filter->errors));
+            $this->assertEquals(0, count($filter->errors), "Error: ".json_encode($filter->errors));
         }
 
         if ($filter->id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
-            $jsonContent = $request->sendGet('filters/' . $filter->id);
+            $jsonContent = $request->sendGet('filters/'.$filter->id);
 
             $resFilter = json_decode($jsonContent, true);
 
@@ -72,9 +80,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         return $filter;
     }
 
-    /**
-     * @depends testCreate
-     */
     public function testFetch()
     {
         $filter = $this->stack->instance('filter');
@@ -87,9 +92,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @depends testCreate
-     */
     public function testFetchContents()
     {
         $filter = $this->stack->instance('filter', DEFAULT_FILTER_ID);
@@ -100,10 +102,12 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         foreach ($tiles as $index => $tile) {
             $this->assertEquals($tileClass, get_class($tile), sprintf("Record %d is not Tile instance", $index));
         }
+
+        return $filter;
     }
 
     /**
-     * @depends testCreate
+     * @depends testFetchContents
      */
     public function testFetchById(Filter $filterRes)
     {
@@ -124,7 +128,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testUpdate(Filter $filterRes)
     {
-        $newName = $filterRes->name . ' - Edited';
+        $newName = $filterRes->name.' - Edited';
         $filter = $this->stack->instance('filter', $filterRes->id);
         $filter->name = $newName;
         $filter->update();
@@ -148,7 +152,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
             try {
                 $filter = $this->stack->instance('filter');
                 $filter->getById($filterRes->id);
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 // exception's been throw because of the requested tag is not exist
             }
             // $tag should empty because the deletion
@@ -157,4 +161,5 @@ class FilterTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(0, count($filterRes->getErrors()));
         }
     }
+
 }
