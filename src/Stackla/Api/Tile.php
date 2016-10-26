@@ -10,53 +10,53 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package Stackla\Api
  *
- * @property integer                        $term_id
- * @property-read string                    $_id
- * @property-read string                    $sta_feed_id
- * @property string                         $guid
- * @property string                         $name
- * @property string                         $avatar
- * @property string                         $title
- * @property string                         $share_text
- * @property string                         $media
- * @property string                         $video_url
- * @property-read string                    $source_user_id
- * @property string                         $width_ratio
- * @property string                         $height_ratio
- * @property string                         $original_url
- * @property string                         $image
- * @property string                         $image_url
- * @property string                         $image_small_url
- * @property string                         $image_medium_url
- * @property string                         $image_large_url
- * @property integer                        $image_width
- * @property integer                        $image_height
- * @property integer                        $image_small_width
- * @property integer                        $image_small_height
- * @property integer                        $image_medium_width
- * @property integer                        $image_medium_height
- * @property integer                        $image_large_width
- * @property integer                        $image_large_height
- * @property string                         $message
- * @property-read string                    $original_url
- * @property string                         $html
- * @property \Stackla\Api\Tag[]             $tags
- * @property-read string|enum               $source
- * @property string|enum                    $status
- * @property string                         $longitude
- * @property string                         $latitude
- * @property string[]                       $disabled_reason
- * @property-read bool                           $disabled
- * @property-read bool                           $claimed
- * @property-read bool                           $anonymous
- * @property-read integer                        $score
- * @property-read integer                        $numVotes
- * @property-read integer                        $numUps
- * @property-read integer                        $numDowns
- * @property-read integer                        $numComments
- * @property-read \Stackla\Core\StacklaDateTime  $created_at
- * @property-read \Stackla\Core\StacklaDateTime  $updated_at
- * @property-read \Stackla\Core\StacklaDateTime  $source_created_at
+ * @property integer $term_id
+ * @property-read string $_id
+ * @property-read string $sta_feed_id
+ * @property string $guid
+ * @property string $name
+ * @property string $avatar
+ * @property string $title
+ * @property string $share_text
+ * @property string $media
+ * @property string $video_url
+ * @property-read string $source_user_id
+ * @property string $width_ratio
+ * @property string $height_ratio
+ * @property string $original_url
+ * @property string $image
+ * @property string $image_url
+ * @property string $image_small_url
+ * @property string $image_medium_url
+ * @property string $image_large_url
+ * @property integer $image_width
+ * @property integer $image_height
+ * @property integer $image_small_width
+ * @property integer $image_small_height
+ * @property integer $image_medium_width
+ * @property integer $image_medium_height
+ * @property integer $image_large_width
+ * @property integer $image_large_height
+ * @property string $message
+ * @property-read string $original_url
+ * @property string $html
+ * @property \Stackla\Api\Tag[] $tags
+ * @property-read string|enum $source
+ * @property string|enum $status
+ * @property string $longitude
+ * @property string $latitude
+ * @property string[] $disabled_reason
+ * @property-read bool $disabled
+ * @property-read bool $claimed
+ * @property-read bool $anonymous
+ * @property-read integer $score
+ * @property-read integer $numVotes
+ * @property-read integer $numUps
+ * @property-read integer $numDowns
+ * @property-read integer $numComments
+ * @property-read \Stackla\Core\StacklaDateTime $created_at
+ * @property-read \Stackla\Core\StacklaDateTime $updated_at
+ * @property-read \Stackla\Core\StacklaDateTime $source_created_at
  */
 class Tile extends StacklaModel implements TileInterface
 {
@@ -466,7 +466,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose the ID as a 24-byte string.
      *
-     * @param string|mixed  $_id
+     * @param string|mixed $_id
      *
      * @return $this
      */
@@ -522,7 +522,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Delete single tag from term
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -570,7 +570,7 @@ class Tile extends StacklaModel implements TileInterface
     public function create()
     {
         $endpoint = sprintf("%s?", $this->endpoint);
-        if(isset($this->term_id) && !is_null($this->term_id)) {
+        if (isset($this->term_id) && !is_null($this->term_id)) {
             $endpoint = sprintf("%s?term_id=%s", $this->endpoint, $this->term_id);
         }
         $data = $this->toArray(true);
@@ -589,11 +589,11 @@ class Tile extends StacklaModel implements TileInterface
      *
      * {@inheritdoc} Will need to pass filter_id in the array of options
      *
-     * @param integer   $filter_id  filter id
-     * @param integer   $limit      default value is 25
-     * @param integet   $page       default value is 1
-     * @param array     $options    optional data
-     * @param bool      $force      force to
+     * @param integer $filter_id filter id
+     * @param integer $limit default value is 25
+     * @param integet $page default value is 1
+     * @param array $options optional data
+     * @param bool $force force to
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -602,7 +602,7 @@ class Tile extends StacklaModel implements TileInterface
     {
         $arg_list = func_get_args();
 
-        if (!isset($arg_list[0])  || empty($arg_list[0])) {
+        if (!isset($arg_list[0]) || empty($arg_list[0])) {
             $message = sprintf('Missing argument 1 to %s::%s() must be an integer.', get_class($this), __METHOD__);
             throw new \Exception($message);
         }
@@ -627,7 +627,7 @@ class Tile extends StacklaModel implements TileInterface
 
     public function getByStacklaFeedId($id)
     {
-        return parent::getById('sta_feed_id:'.$id);
+        return parent::getById('guid:'.$id);
     }
 
 }
