@@ -5,8 +5,10 @@
         <const name="API_HOST" value="https://foo.bar/api/" />
         <const name="API_KEY" value="bar" />
         <const name="ACCESS_TOKEN" value="bar-token" />
+        <const name="ACCESS_TOKEN_PERMISSION" value="rw" /> <!--r or rw-->
         <const name="API_STACK" value="inn" />
         <const name="DEFAULT_FILTER_ID" value="1234" />
+        <const name="DEFAULT_TAG_ID" value="1234" />
         <const name="STACKLA_POST_TERM_ID" value="123" />
         <const name="TILE_ID" value="1234567890qwertyuiop" />
     </php>
