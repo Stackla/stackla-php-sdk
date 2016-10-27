@@ -191,12 +191,10 @@ class Request implements RequestInterface
     {
         $uri = $this->buildUri($endpoint);
         if ($method === "GET" || $method === "PUT") {
+//        if ($method === "GET") {
             $uri = $this->buildUri($endpoint, $data);
-        }
-
-        // TODO: pass post data correctly
-        if (count($data)) {
-            $options['json'] = $data;
+        } elseif (count($data)) {
+            $options['body'] = $data;
         }
 
         $this->request = $this->client->createRequest($method, $uri, $options);
@@ -206,7 +204,7 @@ class Request implements RequestInterface
             $bt = debug_backtrace();
             $caller = $bt[2];
             if (isset($caller['class']) && $caller['class'] === get_class(new \Stackla\Core\StacklaModel())) {
-                $json = (string) $this->response->getBody();
+                $json = (string)$this->response->getBody();
                 if (\Stackla\Validation\JsonValidator::validate($json, true)) {
                     $content = json_decode($json, true);
                     if (isset($content['errors'])) {
@@ -217,18 +215,18 @@ class Request implements RequestInterface
             if ($this->logger) {
                 $this->logger->addError(
                   '-> REQUEST ['.$this->request->getMethod().' - '.$this->request->getUrl()."]",
-                  array($this->request->getMethod() !== "GET" ? $this->request->getPostFields() : "")
+                  array($this->request->getMethod() !== "GET" ? (string)$this->request->getBody() : "")
                 );
                 $this->logger->addError(
                   '<- RESPONSE ['.$this->response->getStatusCode().':'.$this->response->getReasonPhrase()."]",
-                  array((string) $this->response->getBody())
+                  array((string)$this->response->getBody())
                 );
             }
         } else {
             if ($this->logger) {
                 $this->logger->addInfo(
                   '-> REQUEST ['.$this->request->getMethod().' - '.$this->request->getUrl()."]",
-                  array($this->request->getMethod() !== "GET" ? $this->request->getPostFields() : "")
+                  array($this->request->getMethod() !== "GET" ? (string)$this->request->getBody() : "")
                 );
                 $this->logger->addInfo(
                   '<- RESPONSE ['.$this->response->getStatusCode().':'.$this->response->getReasonPhrase()."]",
@@ -240,16 +238,16 @@ class Request implements RequestInterface
         $statusCode = $this->response->getStatusCode();
         switch ($statusCode) {
             case 200:
-                return (string) $this->response->getBody();
+                return (string)$this->response->getBody();
             case 400:
                 throw ApiException::create(
                   sprintf(
                     "Server return %s error code. Bad request: The request could not be understood. %s",
                     $this->response->getStatusCode(),
-                    (string) $this->response->getBody()
+                    (string)$this->response->getBody()
                   ),
                   $statusCode,
-                  (string) $this->response->getBody()
+                  (string)$this->response->getBody()
                 );
             case 401:
                 throw ApiException::create(
@@ -258,16 +256,17 @@ class Request implements RequestInterface
                     $this->response->getStatusCode()
                   ),
                   $statusCode,
-                  (string) $this->response->getBody()
+                  (string)$this->response->getBody()
                 );
             case 403:
                 throw ApiException::create(
-                  sprintf("
+                  sprintf(
+                    "
                   Server return %s error code. Rate limit exceeded: Too many requests in the current time window",
                     $this->response->getStatusCode()
                   ),
                   $statusCode,
-                  (string) $this->response->getBody()
+                  (string)$this->response->getBody()
                 );
             case 404:
                 throw ApiException::create(
@@ -276,17 +275,17 @@ class Request implements RequestInterface
                     $this->response->getStatusCode()
                   ),
                   $statusCode,
-                  (string) $this->response->getBody()
+                  (string)$this->response->getBody()
                 );
             default:
                 throw ApiException::create(
                   sprintf(
                     "Server return %s error code.Server error: An error on the server prohibited a successful response; please contact support. %s",
                     $this->response->getStatusCode(),
-                    (string) $this->response->getBody()
+                    (string)$this->response->getBody()
                   ),
                   $statusCode,
-                  (string) $this->response->getBody()
+                  (string)$this->response->getBody()
                 );
         }
 

@@ -153,9 +153,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
                 $filter = $this->stack->instance('filter');
                 $filter->getById($filterRes->id);
             } catch (\Exception $e) {
-                // exception's been throw because of the requested tag is not exist
+                // Requested filter not exists
             }
-            // $tag should empty because the deletion
+            // $filter should be empty because of the deletion
             $this->assertEquals(0, count($filter));
             $this->assertGreaterThan(0, count($filter->getErrors()));
             $this->assertEquals(0, count($filterRes->getErrors()));
