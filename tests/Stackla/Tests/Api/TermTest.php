@@ -330,7 +330,7 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
         $termTags = $term->tags;
 
-        $this->assertGreaterThan(0, count($term->tags), 'No tag assosiated to this term');
+        $this->assertGreaterThan(0, count($term->tags), 'No tag associated to this term');
         $this->assertEquals((int)DEFAULT_TAG_ID, $termTags[0]->id, 'Tag ID is not the same');
     }
 
@@ -345,7 +345,7 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
         $term = $this->stack->instance('term', $termRes->id);
 
-        $this->assertEquals(0, count($term->tags), 'No tag assosiated to this term');
+        $this->assertEquals(0, count($term->tags), 'No tag associated to this term');
     }
 
     /**

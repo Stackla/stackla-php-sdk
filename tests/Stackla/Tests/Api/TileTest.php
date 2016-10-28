@@ -195,6 +195,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $tag = $this->stack->instance('tag', DEFAULT_TAG_ID);
         $tile = $this->stack->instance('tile');
         $tile->getByGuid($sta_feed_id);
+        // TODO: fix this test, seems to occure server side...
         $tile->deleteTag($tag);
         $tile->update();
 
