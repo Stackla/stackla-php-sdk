@@ -5,7 +5,7 @@ namespace Stackla\Exception;
 /**
  * Class StacklaMissingCredentialException
  *
- * @package Stackla\Exception
+ * Stackla\Exception
  */
 class StacklaMissingCredentialException extends \Exception
 {

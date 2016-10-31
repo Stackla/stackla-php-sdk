@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Tile's properties
  *
- * @package Stackla\Api
+ * Stackla\Api
  *
  * @property integer $term_id
  * @property-read string $_id

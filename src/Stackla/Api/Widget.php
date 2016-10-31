@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * Class Widget
  *
- * @package Stakla\Api
+ * Stakla\Api
  *
  * @property-read integer $id
  * @property-read integer $stackla_id

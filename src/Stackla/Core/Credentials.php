@@ -7,7 +7,7 @@ use \Stackla\Core\Request;
 /**
  * Credentials
  *
- * @packages Stackla\Core
+ * packages Stackla\Core
  *
  * @property    string     $host
  * @property    string     $stack
