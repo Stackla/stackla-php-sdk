@@ -10,7 +10,7 @@ use Stackla\Core\StacklaDateTime;
  *
  * Term allow you to ingest social media contents.
  *
- * @packages Stackla\Api
+ * @package Stackla\Api
  *
  * @property-read integer    $id
  * @property string     $name

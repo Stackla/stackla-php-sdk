@@ -5,7 +5,7 @@ namespace Stackla\Validation;
 /**
  * Class UrlValidator
  *
- * @packages Stackla\Validation
+ * @package Stackla\Validation
  */
 class UrlValidator
 {

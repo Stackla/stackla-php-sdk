@@ -5,7 +5,7 @@ namespace Stackla\Validation;
 /**
  * Class ArgumentValidator
  *
- * @packages Stackla\Validation
+ * @package Stackla\Validation
  */
 class ArgumentValidator
 {

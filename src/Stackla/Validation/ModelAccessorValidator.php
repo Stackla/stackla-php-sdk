@@ -7,7 +7,7 @@ use Stackla\Core\StacklaModel;
 /**
  * Class ModelAccessorValidator
  *
- * @packages Stackla\Validation
+ * @package Stackla\Validation
  */
 class ModelAccessorValidator
 {

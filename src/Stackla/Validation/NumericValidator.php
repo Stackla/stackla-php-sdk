@@ -5,7 +5,7 @@ namespace Stackla\Validation;
 /**
  * Class NumericValidator
  *
- * @packages Stackla\Validation
+ * @package Stackla\Validation
  */
 class NumericValidator
 {

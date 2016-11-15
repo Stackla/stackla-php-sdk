@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * They are more like blog tags or product swing-tags and not to be confused
  * with hashtagsg
  *
- * @packages Stackla\Api
+ * @package Stackla\Api
  *
  * @property-read integer    $id
  * @property-read integer    $stack_id
