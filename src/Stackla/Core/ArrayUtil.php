@@ -6,7 +6,7 @@ namespace Stackla\Core;
  * Class ArrayUtil
  * Util Class for Arrays
  *
- * Stackla\Core
+ * @packages Stackla\Core
  */
 class ArrayUtil
 {

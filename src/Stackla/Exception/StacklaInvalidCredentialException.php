@@ -5,7 +5,7 @@ namespace Stackla\Exception;
 /**
  * Class StacklaInvalidCredentialException
  *
- * Stackla\Exception
+ * @packages Stackla\Exception
  */
 class StacklaInvalidCredentialException extends \Exception
 {

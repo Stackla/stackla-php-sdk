@@ -192,7 +192,6 @@ class Request implements RequestInterface
     {
         $uri = $this->buildUri($endpoint);
         if ($method === "GET" || $method === "PUT") {
-//        if ($method === "GET") {
             $uri = $this->buildUri($endpoint, $data);
         } elseif (count($data)) {
             $options['body'] = $data;
@@ -200,45 +199,6 @@ class Request implements RequestInterface
 
         $this->request = $this->client->createRequest($method, $uri, $options);
         $this->response = $this->client->send($this->request);
-//        try {
-//            try {
-//                $this->response = $this->client->send($this->request);
-//            } catch (ClientErrorResponseException $e) {
-//                throw $e;
-//                $this->client->get
-//            }
-//        } catch (BadResponseException $e) {
-//            throw $e;
-//        }
-
-//        try {
-//            try {
-//                switch ($method) {
-//                    case 'POST':
-//                        $this->request = $this->client->post($uri, $options, $data);
-//                        break;
-//                    case 'PUT':
-//                        $this->request = $this->client->put($uri, $options, $data);
-//                        break;
-//                    case 'DELETE':
-//                        $this->request = $this->client->delete($uri, $options, $data);
-//                        break;
-//                    case 'GET':
-//                        $this->request = $this->client->get($uri);
-//                        break;
-//                }
-//                if ($body) {
-//                    $this->request->setBody($body);
-//                }
-//                $this->response = $this->request->send();
-//            } catch (ClientErrorResponseException $e) {
-//                $this->request = $e->getRequest();
-//                $this->response = $this->request->getResponse();
-//            }
-//        } catch (BadResponseException $e) {
-//            $this->request = $e->getRequest();
-//            $this->response = $this->request->getResponse();
-//        }
 
         if ($this->response->getStatusCode() >= 400) {
             $bt = debug_backtrace();

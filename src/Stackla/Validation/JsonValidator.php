@@ -5,7 +5,7 @@ namespace Stackla\Validation;
 /**
  * Class JsonValidator
  *
- * Stackla\Validation
+ * @packages Stackla\Validation
  */
 class JsonValidator
 {

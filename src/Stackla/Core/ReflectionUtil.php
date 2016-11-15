@@ -6,7 +6,7 @@ use Stackla\Exception\StacklaConfigurationException;
 /**
  * Class ReflectionUtil
  *
- * Stackla\Core
+ * @packages Stackla\Core
  */
 class ReflectionUtil
 {

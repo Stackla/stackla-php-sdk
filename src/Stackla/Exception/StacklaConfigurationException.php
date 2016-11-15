@@ -5,7 +5,7 @@ namespace Stackla\Exception;
 /**
  * Class StacklaConfigurationException
  *
- * Stackla\Exception
+ * @packages Stackla\Exception
  */
 class StacklaConfigurationException extends \Exception
 {
