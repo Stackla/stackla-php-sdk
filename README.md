@@ -9,6 +9,20 @@ We are continuously working on improving both the SDK and the documentation arou
 * PHP >=5.3.3
 * [Composer](https://getcomposer.org/)
 
+## PHPUnit ##
+
+Required `env` variable:
+* ACCESS_TOKEN
+* API_STACK => Stackla stack short_name
+* API_HOST => `https://api.stackla.com/api/`
+* DEFAULT_FILTER_ID
+* DEFAULT TAG_ID
+* STACKLA_POST_TERM_ID
+
+```
+$ php ./vendor/bin/phpunit ---configuration phpunit.xml.dist
+```
+
 ## Great. How do I get this thing going? ##
 
 #### Dependencies ####

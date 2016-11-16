@@ -13,3 +13,10 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 
 // Set loader to AnnotationRegistry
 AnnotationRegistry::registerLoader(array($autoloaded, 'loadClass'));
+
+define('ACCESS_TOKEN', getenv('ACCESS_TOKEN'));
+define('API_STACK', getenv('API_STACK'));
+define('API_HOST', getenv('API_HOST'));
+define('DEFAULT_FILTER_ID', getenv('DEFAULT_FILTER_ID'));
+define('DEFAULT_TAG_ID', getenv('DEFAULT_TAG_ID'));
+define('STACKLA_POST_TERM_ID', getenv('STACKLA_POST_TERM_ID'));
