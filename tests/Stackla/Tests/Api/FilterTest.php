@@ -12,11 +12,13 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
     private $stack;
+    private $uniqId;
     public function __construct()
     {
         $this->credentials = new Credentials(API_HOST, ACCESS_TOKEN, API_STACK);
 
         $this->stack = new \Stackla\Api\Stack($this->credentials, API_HOST, API_STACK);
+        $this->uniqId = uniqid();
     }
 
     public function testCreate()
@@ -24,7 +26,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $tag = $this->stack->instance('tag', DEFAULT_TAG_ID, false);
 
         $filter = $this->stack->instance('filter');
-        $filter->name = 'Test filter';
+        $filter->name = 'Test filter ' . $this->uniqId;
         $filter->enabled = Filter::ENABLE_HIDDEN;
         $filter->sort = Filter::SORT_LATEST;
         $filter->orders = 11; // random number

@@ -12,17 +12,19 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
     private $stack;
+    private $uniqId;
     public function __construct()
     {
         $this->credentials = new Credentials(API_HOST, ACCESS_TOKEN, API_STACK);
 
         $this->stack = new \Stackla\Api\Stack($this->credentials, API_HOST, API_STACK);
+        $this->uniqId = uniqid();
     }
 
     public function testCreate()
     {
         $widget = $this->stack->instance('Widget');
-        $widget->name = 'Test widget';
+        $widget->name = 'Test widget ' . $this->uniqId;
         $widget->type_style = Widget::STYLE_BASE_WATERFALL;
         $widget->filter_id = (int) DEFAULT_FILTER_ID;
 
