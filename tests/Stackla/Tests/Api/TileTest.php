@@ -27,7 +27,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $tile->name = 'Test tile\'s name';
         $tile->message = 'Test tile\'s message #testtile ' . date('Y-m-d h:i:s');
         $tile->term_id = STACKLA_POST_TERM_ID;
-        $tile->image_url = 'https://scontent-syd2-1.cdninstagram.com/t51.2885-15/e35/14374061_652837251542826_5176014892573917184_n.jpg?ig_cache_key=MTM0NzQ2NzA5MTk2NDEwMDIzMw%3D%3D.2';
+        $tile->image_url = 'https://scontent-syd2-1.cdninstagram.com/t51.2885-15/e35/14374061_652837251542826_5176014892573917184_n.jpg';
 
         $validations = $tile->validate();
 
