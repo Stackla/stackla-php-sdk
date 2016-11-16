@@ -14,7 +14,7 @@ class StacklaInvalidCredentialException extends \Exception
      * Default Constructor
      *
      * @param string|null $message
-     * @param int  $code
+     * @param int $code
      */
     public function __construct($message = null, $code = 0)
     {

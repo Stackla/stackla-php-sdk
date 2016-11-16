@@ -27,8 +27,8 @@ class StacklaConnectionException extends \Exception
      * Default Constructor
      *
      * @param string $url
-     * @param string    $message
-     * @param int    $code
+     * @param string $message
+     * @param int $code
      */
     public function __construct($url, $message, $code = 0)
     {

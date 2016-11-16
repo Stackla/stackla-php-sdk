@@ -2,11 +2,6 @@
 
 namespace Stackla\Api;
 
-use Stackla\Api\Tile;
-use Stackla\Api\Term;
-use Stackla\Api\Filter;
-use Stackla\Api\Tag;
-
 class Stack
 {
     /**
@@ -19,9 +14,9 @@ class Stack
     /**
      * Instantiated Stackla object
      *
-     * @param \Stackla\Core\Credetials  $credentials
-     * @param string                    $host
-     * @param string                    $stack
+     * @param \Stackla\Core\Credetials $credentials
+     * @param string $host
+     * @param string $stack
      *
      * @return $this
      */
@@ -39,15 +34,15 @@ class Stack
     /**
      * Instantiated new object
      *
-     * @param string        $objectName     Tile|Term|Tag|Filter
-     * @param string|array  $objectId       Id of new object
-     * @param bool          $fetch          Do get request to populate the field / property
+     * @param string $objectName Tile|Term|Tag|Filter
+     * @param string|array $objectId Id of new object
+     * @param bool $fetch Do get request to populate the field / property
      *
      * @return object
      */
     public function instance($objectName, $objectId = null, $fetch = true)
     {
-        $class = "\\Stackla\\Api\\".ucfirst($objectName);
+        $class = "\\Stackla\\Api\\" . ucfirst($objectName);
 
         if (!class_exists($class)) {
             return null;

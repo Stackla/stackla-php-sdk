@@ -7,17 +7,17 @@ interface TagInterface
     /**
      * Tag type
      */
-    const TYPE_CONTENT      = 'content';
-    const TYPE_PRODUCT      = 'product';
-    const TYPE_COMPETITION  = 'competition';
+    const TYPE_CONTENT = 'content';
+    const TYPE_PRODUCT = 'product';
+    const TYPE_COMPETITION = 'competition';
 
     /**
      * Custom URL target
      */
-    const TARGET_BLANK      = '_blank';
-    const TARGET_SELF       = '_self';
-    const TARGET_PARENT     = '_parent';
-    const TARGET_TOP        = '_top';
+    const TARGET_BLANK = '_blank';
+    const TARGET_SELF = '_self';
+    const TARGET_PARENT = '_parent';
+    const TARGET_TOP = '_top';
 
     /**
      * Public visibility
@@ -28,7 +28,7 @@ interface TagInterface
     /**
      * Get tag by Ext product id
      *
-     * @param string $id    External product id
+     * @param string $id External product id
      *
      * @return mixed    $this or false
      */
@@ -37,7 +37,7 @@ interface TagInterface
     /**
      * This method will delete content from Stackla
      *
-     * @param integer   $id     Content id
+     * @param integer $id Content id
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object

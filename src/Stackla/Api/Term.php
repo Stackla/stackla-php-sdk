@@ -3,7 +3,6 @@
 namespace Stackla\Api;
 
 use Stackla\Core\StacklaModel;
-use Stackla\Core\StacklaDateTime;
 
 /**
  * Class Details
@@ -12,48 +11,48 @@ use Stackla\Core\StacklaDateTime;
  *
  * @package Stackla\Api
  *
- * @property-read integer    $id
- * @property string     $name
- * @property string     $display_name
- * @property bool       $active
- * @property string     $type
- * @property string     $network
- * @property string     $term
- * @property string[]   $filter
- * @property string[]   $exclude_filter
- * @property string[]   $fan_filter
- * @property string[]   $fan_exclude_filter
- * @property integer    $minimum_fallowers
- * @property string     $moderate_text
- * @property string     $moderate_image
- * @property string     $moderate_video
- * @property bool       $retweet_enable
- * @property bool       $reply_enable
- * @property bool       $reply_to_enable
- * @property bool       $partial_match
- * @property bool       $official
- * @property bool       $own
- * @property bool       $include_fan_content
- * @property bool       $include_hashtag_in_comments
- * @property bool       $include_official_content
- * @property bool       $disable_badword
- * @property string     $search_exact_phrase
- * @property integer    $num_of_backfill
- * @property string     $geoFence
- * @property string[]   $whitelist_handles
- * @property string[]   $blacklist_handles
- * @property string     $avatar
- * @property integer    $ecal_id
- * @property integer    $access_key
- * @property string     $source_user_id
- * @property string     $attribute
- * @property string     $selector
- * @property bool       $subscribed_to_updates
- * @property string     $page_type
- * @property \Stackla\Api\Tag[]  $tags
- * @property-read \Stackla\Core\StacklaDateTime  $created
- * @property-read \Stackla\Core\StacklaDateTime  $modified
- * @property-read \Stackla\Core\StacklaDateTime  $last_ingestion_post
+ * @property-read integer $id
+ * @property string $name
+ * @property string $display_name
+ * @property bool $active
+ * @property string $type
+ * @property string $network
+ * @property string $term
+ * @property string[] $filter
+ * @property string[] $exclude_filter
+ * @property string[] $fan_filter
+ * @property string[] $fan_exclude_filter
+ * @property integer $minimum_fallowers
+ * @property string $moderate_text
+ * @property string $moderate_image
+ * @property string $moderate_video
+ * @property bool $retweet_enable
+ * @property bool $reply_enable
+ * @property bool $reply_to_enable
+ * @property bool $partial_match
+ * @property bool $official
+ * @property bool $own
+ * @property bool $include_fan_content
+ * @property bool $include_hashtag_in_comments
+ * @property bool $include_official_content
+ * @property bool $disable_badword
+ * @property string $search_exact_phrase
+ * @property integer $num_of_backfill
+ * @property string $geoFence
+ * @property string[] $whitelist_handles
+ * @property string[] $blacklist_handles
+ * @property string $avatar
+ * @property integer $ecal_id
+ * @property integer $access_key
+ * @property string $source_user_id
+ * @property string $attribute
+ * @property string $selector
+ * @property bool $subscribed_to_updates
+ * @property string $page_type
+ * @property \Stackla\Api\Tag[] $tags
+ * @property-read \Stackla\Core\StacklaDateTime $created
+ * @property-read \Stackla\Core\StacklaDateTime $modified
+ * @property-read \Stackla\Core\StacklaDateTime $last_ingestion_post
  */
 class Term extends StacklaModel implements TermInterface
 {
@@ -419,7 +418,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Filter for the term.
      *
-     * @param string     $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -437,7 +436,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Exclude filter for the term.
      *
-     * @param string     $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -465,7 +464,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Exclude filter for the term.
      *
-     * @param string     $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -483,7 +482,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Fan filter for the term.
      *
-     * @param string    $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -511,7 +510,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Fan filter for the term.
      *
-     * @param string     $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -529,7 +528,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Fan exclude filter for the term.
      *
-     * @param string     $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -557,7 +556,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Fan exclude filter for the term.
      *
-     * @param string     $filter
+     * @param string $filter
      *
      * @return $this
      */
@@ -575,7 +574,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Associate single tag to term
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -605,7 +604,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Disassosiate single tag from term
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -650,7 +649,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Add tag to tags list
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -678,7 +677,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Disassosiate single tag from term
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -824,6 +823,7 @@ class Term extends StacklaModel implements TermInterface
         }
         return parent::update($force);
     }
+
     public function delete()
     {
         return parent::delete();

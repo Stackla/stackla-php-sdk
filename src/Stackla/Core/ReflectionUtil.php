@@ -1,6 +1,7 @@
 <?php
 
 namespace Stackla\Core;
+
 use Stackla\Exception\StacklaConfigurationException;
 
 /**
@@ -184,11 +185,12 @@ class ReflectionUtil
     // todo: smarter regexp
     private static function parse($docComment)
     {
-        if ( !preg_match_all(
+        if (!preg_match_all(
             '~\@([^\s@\(]+)[\t ]*(?:\(?([^\n\s@]+)\)?)?[\t ]*(\$(?:\(?([^\$\n\s@]+)\)?)?[\t ]*(?:\(?([^\n@]+)\)?))?~i',
             $docComment,
             $annots,
-            PREG_PATTERN_ORDER)) {
+            PREG_PATTERN_ORDER)
+        ) {
             return null;
         }
         return $annots;

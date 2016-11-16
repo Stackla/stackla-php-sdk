@@ -4,9 +4,8 @@ namespace Stackla\Core;
 
 use Stackla\Validation\JsonValidator;
 use Stackla\Validation\ModelAccessorValidator;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\Validator\Validation;
 
 class StacklaModel implements \IteratorAggregate, \Countable
 {
@@ -97,13 +96,13 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Constructor
      *
-     * @param array         $configs        [
+     * @param array $configs [
      *                                          'credentials' => \Stackla\Core\Credentials,
      *                                          'host' => API_HOST,
      *                                          'stack' => 'your_stack'
      *                                      ]
-     * @param string|array  $data
-     * @param bool          $fetch          Do get request to populate the field / property
+     * @param string|array $data
+     * @param bool $fetch Do get request to populate the field / property
      *
      * @return null
      */
@@ -194,8 +193,8 @@ class StacklaModel implements \IteratorAggregate, \Countable
         $trace = debug_backtrace();
 
         $property = null;
-        if (ModelAccessorValidator::property($this, '_'.lcfirst($camelCase))) {
-            $property =  '_' . lcfirst($camelCase);
+        if (ModelAccessorValidator::property($this, '_' . lcfirst($camelCase))) {
+            $property = '_' . lcfirst($camelCase);
         }
 
         if (ModelAccessorValidator::validate($this, $camelCase)) {
@@ -309,7 +308,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Check if property is public or not
      *
-     * @param string    $key    Property name
+     * @param string $key Property name
      *
      * @return bool
      */
@@ -344,7 +343,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Check if property is been updated or not
      *
-     * @param string    $property
+     * @param string $property
      *
      * @return bool
      */
@@ -364,7 +363,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
      * Converts Params to Array
      *
      * @param mixed $param
-     * @param bool  $only_updated
+     * @param bool $only_updated
      *
      * @return array
      */
@@ -381,9 +380,6 @@ class StacklaModel implements \IteratorAggregate, \Countable
                 $ret[$k] = $v->toArray($only_updated);
             } else if ($v instanceof StacklaDateTime) {
                 $ret[$k] = $v->getTimestamp();
-            // This has been disabled because the field mapper will not work properly if the parent key name is the same with the child key name
-            // } else if (is_array($v)) {
-            //     $ret[$k] = $this->_convertToArray($v, $only_updated);
             } else {
                 $ret[$k] = $v;
             }
@@ -400,7 +396,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Returns array representation of object
      *
-     * @param bool  $only_updated  Boolean value to identifier iether to include or exclude updated properties
+     * @param bool $only_updated Boolean value to identifier iether to include or exclude updated properties
      *
      * @return array
      */
@@ -412,8 +408,8 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Returns object JSON representation
      *
-     * @param int   $options        http://php.net/manual/en/json.constants.php
-     * @param bool  $only_updated   option to encode updated properties only
+     * @param int $options http://php.net/manual/en/json.constants.php
+     * @param bool $only_updated option to encode updated properties only
      * @return string
      */
     public function toJSON($options = 0, $only_updated = false)
@@ -462,7 +458,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Fills object value from Array list
      *
-     * @param array     $arr        Array of object data
+     * @param array $arr Array of object data
      *
      * @return $this
      */
@@ -482,7 +478,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
                     // If the value is an array, it means, it is an object after conversion
                     if (is_array($v) && !empty($v)) {
                         // Determine the class of the object
-                        if (($clazz = ReflectionUtil::getPropertyClass(get_class($this), $k)) != null && !in_array($clazz, $this->type_keywords)){
+                        if (($clazz = ReflectionUtil::getPropertyClass(get_class($this), $k)) != null && !in_array($clazz, $this->type_keywords)) {
                             // If the value is an associative array, it means, its an object. Just make recursive call to it.
                             if (ArrayUtil::isAssocArray($v)) {
                                 /** @var self $o */
@@ -563,7 +559,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Request error
      *
-     * @param array     $errors
+     * @param array $errors
      *
      * @return $this
      */
@@ -586,7 +582,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Fills object value from Json string/object
      *
-     * @param string/object     $json
+     * @param string /object     $json
      * @return $this
      */
     public function fromJson($json)
@@ -650,7 +646,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Tags
      *
-     * @param \Stackla\Api\Tag[]    $tags
+     * @param \Stackla\Api\Tag[] $tags
      *
      * @return $this
      */
@@ -681,7 +677,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * This method will create new content in Stackla
      *
-     * @param array     $data   Array of data
+     * @param array $data Array of data
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -702,9 +698,9 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * This method will return content
      *
-     * @param integer   $limit      default value is 25
-     * @param integet   $page       default value is 1
-     * @param array     $options    optional data
+     * @param integer $limit default value is 25
+     * @param integet $page default value is 1
+     * @param array $options optional data
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -736,7 +732,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * This method will return content by provided valid ID
      *
-     * @param integer   $id     Content id
+     * @param integer $id Content id
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -756,7 +752,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * This method will update content in Stackla
      *
-     * @param bool      $force  Indicator to force update even the object is using placeholder
+     * @param bool $force Indicator to force update even the object is using placeholder
      *                          instead of data from API
      *
      * @return mixed    Will return FALSE if the API connection is failed
@@ -784,7 +780,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * This method will delete content from Stackla
      *
-     * @param integer   $id     Content id
+     * @param integer $id Content id
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -804,46 +800,46 @@ class StacklaModel implements \IteratorAggregate, \Countable
     public function getValidations()
     {
         $validations = array();
-        $validator=Validation::createValidatorBuilder()
+        $validator = Validation::createValidatorBuilder()
             ->enableAnnotationMapping()
             ->getValidator();
         $class = get_class($this);
-        $metadata=$validator->getMetadataFor(new $class());
-        $constrainedProperties=$metadata->getConstrainedProperties();
+        $metadata = $validator->getMetadataFor(new $class());
+        $constrainedProperties = $metadata->getConstrainedProperties();
 
         // loop for all properties' that has constraints / rules
-        foreach($constrainedProperties as $constrainedProperty) {
-            $propertyMetadata=$metadata->getPropertyMetadata($constrainedProperty);
-            $constraints=$propertyMetadata[0]->constraints;
+        foreach ($constrainedProperties as $constrainedProperty) {
+            $propertyMetadata = $metadata->getPropertyMetadata($constrainedProperty);
+            $constraints = $propertyMetadata[0]->constraints;
             $outputConstraintsCollection = array();
 
             // loop for all constraints / rules
-            foreach($constraints as $constraint) {
+            foreach ($constraints as $constraint) {
                 $class = new \ReflectionObject($constraint);
                 $constraintName = $class->getShortName();
                 switch ($constraintName) {
                     case "NotBlank":
-                        $param="notBlank";
+                        $param = "notBlank";
                         break;
                     case "Type":
-                        $param=$constraint->type;
+                        $param = $constraint->type;
                         break;
                     case "Choice":
-                        $param=$constraint->choices;
+                        $param = $constraint->choices;
                         break;
                     case "Url":
-                        $param=$constraint->protocols;
+                        $param = $constraint->protocols;
                         break;
                     default:
                         $param = $constraint;
                         break;
                 }
 
-                $outputConstraintsCollection[$constraintName]=$param;
+                $outputConstraintsCollection[$constraintName] = $param;
             }
             $sourceProp = preg_replace('/^_/', '', $this->convertToNonCamelCase($constrainedProperty));
 
-            $validations[$sourceProp]=$outputConstraintsCollection;
+            $validations[$sourceProp] = $outputConstraintsCollection;
         }
 
         return $validations;
@@ -859,16 +855,14 @@ class StacklaModel implements \IteratorAggregate, \Countable
 
         $_validations = $validator->validate($this);
 
-        foreach($_validations as $_validation) {
+        foreach ($_validations as $_validation) {
             $prop = preg_replace('/^_/', '', $_validation->getPropertyPath());
             $sourceProp = $this->convertToNonCamelCase($prop);
 
             /**
              * @todo need to properly convert camel case back to normal case (source)
              */
-            // if (in_array($sourceProp, $this->_propMap)) {
-                $prop = $sourceProp;
-            // }
+            $prop = $sourceProp;
             $validations[] = array(
                 'property' => $prop,
                 'message' => $_validation->getMessage()

@@ -2,9 +2,6 @@
 
 namespace Stackla\Core;
 
-use Doctrine\Common\Cache;
-use Guzzle\Http\Client;
-
 /**
  * Interfave for Stackla API
  */
@@ -12,31 +9,31 @@ interface RequestInterface
 {
     /**
      * Host setter
-     * 
-     * @param string    $host   API host name
+     *
+     * @param string $host API host name
      */
     public function setHost($host);
 
     /**
      * API key setter
-     * 
-     * @param string    $apiKey     Client API key
+     *
+     * @param string $apiKey Client API key
      */
     public function setApiKey($apiKey);
 
     /**
      * Stack setter
-     * 
-     * @param string    $stack  Client stack name
+     *
+     * @param string $stack Client stack name
      */
     public function setStack($stack);
 
     /**
      * This method will do GET request to Stackla API
-     * 
-     * @param string    $endpoint   The operation / task for API
-     * @param array     $data       The parameter need to be passed 
-     * 
+     *
+     * @param string $endpoint The operation / task for API
+     * @param array $data The parameter need to be passed
+     *
      * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
@@ -44,10 +41,10 @@ interface RequestInterface
 
     /**
      * This method will do POST request to Stackla API
-     * 
-     * @param string    $endpoint   The operation / task for API
-     * @param array     $data       The parameter need to be passed 
-     * 
+     *
+     * @param string $endpoint The operation / task for API
+     * @param array $data The parameter need to be passed
+     *
      * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
@@ -55,10 +52,10 @@ interface RequestInterface
 
     /**
      * This method will do PUT request to Stackla API
-     * 
-     * @param string    $endpoint   The operation / task for API
-     * @param array     $data       The parameter need to be passed 
-     * 
+     *
+     * @param string $endpoint The operation / task for API
+     * @param array $data The parameter need to be passed
+     *
      * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
@@ -66,10 +63,10 @@ interface RequestInterface
 
     /**
      * This method will do DELETE request to Stackla API
-     * 
-     * @param string    $endpoint   The operation / task for API
-     * @param array     $data       The parameter need to be passed 
-     * 
+     *
+     * @param string $endpoint The operation / task for API
+     * @param array $data The parameter need to be passed
+     *
      * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
@@ -82,14 +79,14 @@ interface RequestInterface
 
     /**
      * This method will return the request object
-     * 
+     *
      * @return \Guzzle\Http\Message\Request
      */
     public function getRequest();
 
     /**
      * This method will return the response object
-     * 
+     *
      * @return \Guzzle\Http\Message\Response
      */
     public function getResponse();

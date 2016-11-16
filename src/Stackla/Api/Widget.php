@@ -3,27 +3,25 @@
 namespace Stackla\Api;
 
 use Stackla\Core\StacklaModel;
-use Stackla\Api\Tag;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class Widget
  *
  * @package Stakla\Api
  *
- * @property-read integer           $id
- * @property-read integer           $stackla_id
- * @property-read string            $guid
- * @property array                  $style
- * @property array                  $config
- * @property string                 $css
- * @property integer                $filter_id
- * @property string                 $custom_css
- * @property string                 $custom_js
- * @property string                 $external_js
- * @property integer                $parent_id
- * @property-read string            $embed_code
+ * @property-read integer $id
+ * @property-read integer $stackla_id
+ * @property-read string $guid
+ * @property array $style
+ * @property array $config
+ * @property string $css
+ * @property integer $filter_id
+ * @property string $custom_css
+ * @property string $custom_js
+ * @property string $external_js
+ * @property integer $parent_id
+ * @property-read string $embed_code
  */
 class Widget extends StacklaModel implements WidgetInterface
 {
@@ -219,7 +217,7 @@ class Widget extends StacklaModel implements WidgetInterface
      *
      * @uses $style['name']
      *
-     * @param string    $name
+     * @param string $name
      *
      * @return $this
      */
@@ -251,7 +249,7 @@ class Widget extends StacklaModel implements WidgetInterface
      *
      * @uses $style['type']
      *
-     * @param string    $type
+     * @param string $type
      *
      * @return $this
      */
@@ -283,7 +281,7 @@ class Widget extends StacklaModel implements WidgetInterface
      *
      * @uses $style['style']
      *
-     * @param string    $typeStyle
+     * @param string $typeStyle
      *
      * @return $this
      */
@@ -320,7 +318,7 @@ class Widget extends StacklaModel implements WidgetInterface
      *
      * @uses $style['max_tile_width']
      *
-     * @param integer    $width
+     * @param integer $width
      *
      * @return $this
      */

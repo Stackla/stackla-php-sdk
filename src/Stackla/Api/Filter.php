@@ -3,7 +3,6 @@
 namespace Stackla\Api;
 
 use Stackla\Core\StacklaModel;
-use Stackla\Api\Tag;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,16 +10,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package Stakla\Api
  *
- * @property-read integer                $id
- * @property string                 $name
- * @property integer                $enable
- * @property integer                $orders
- * @property string|enum            $sort
- * @property string[]               $networks
- * @property \Stackla\Api\Tag[]     $tags
- * @property string[]               $media
- * @property \Stackla\Api\Location  $geofence
- * @property string                 $filterByClaimed
+ * @property-read integer $id
+ * @property string $name
+ * @property integer $enable
+ * @property integer $orders
+ * @property string|enum $sort
+ * @property string[] $networks
+ * @property \Stackla\Api\Tag[] $tags
+ * @property string[] $media
+ * @property \Stackla\Api\Location $geofence
+ * @property string $filterByClaimed
  *
  * @return
  */
@@ -148,7 +147,7 @@ class Filter extends StacklaModel implements FilterInterface
     /**
      * Media
      *
-     * @param string[]    $media
+     * @param string[] $media
      *
      * @return $this
      */
@@ -184,7 +183,7 @@ class Filter extends StacklaModel implements FilterInterface
     /**
      * Add tag to tags list
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -212,7 +211,7 @@ class Filter extends StacklaModel implements FilterInterface
     /**
      * Delete single tag from term
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -255,7 +254,7 @@ class Filter extends StacklaModel implements FilterInterface
     /**
      * Filter's contents/tiles
      *
-     * @param \Stackla\Api\Tile[]   $contents
+     * @param \Stackla\Api\Tile[] $contents
      *
      * @return $this
      */
@@ -295,7 +294,7 @@ class Filter extends StacklaModel implements FilterInterface
                     $limit = $args[0];
                     $force = $args[1];
                 } else {
-                    $error = array (
+                    $error = array(
                         'index' => '1 and 2',
                         'type' => 'integer and integer for limit and page or integer and array for limit and options or integer and boolean for limit and force option'
                     );

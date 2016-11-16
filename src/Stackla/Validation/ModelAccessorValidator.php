@@ -29,8 +29,7 @@ class ModelAccessorValidator
             if (get_class($class) == get_class(new StacklaModel())) {
                 // Silently return false on cases where you are using StacklaModel instance directly
                 return false;
-            }
-            //Check if both getter and setter exists for given attribute
+            } //Check if both getter and setter exists for given attribute
             elseif (!method_exists($class, $methodName)) {
                 //Delegate the error based on the choice
                 $className = is_object($class) ? get_class($class) : (string)$class;
@@ -69,8 +68,7 @@ class ModelAccessorValidator
         if (get_class($class) == get_class(new StacklaModel())) {
             // Silently return false on cases where you are using StacklaModel instance directly
             return false;
-        }
-        //Check if both getter and setter exists for given attribute
+        } //Check if both getter and setter exists for given attribute
         elseif (!property_exists($class, $propertyName)) {
             //Delegate the error based on the choice
             $className = is_object($class) ? get_class($class) : (string)$class;

@@ -2,10 +2,10 @@
 
 namespace Stackla\Core;
 
-use Guzzle\Http\EntityBodyInterface;
 use Guzzle\Http\Client;
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use Guzzle\Http\EntityBodyInterface;
 use Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use Stackla\Exception\ApiException;
 
 class Request implements RequestInterface
@@ -120,11 +120,11 @@ class Request implements RequestInterface
      * Build a complete URI request by concanating the host name,
      * endpoint, API key and id
      *
-     * @param string    $endpoint   Endpoint of API call
+     * @param string $endpoint Endpoint of API call
      *                              example: - /filters
      *                                       - /filters/[FILTER_ID]/content
      *                                       - /tags
-     * @param array     $query      Query of data
+     * @param array $query Query of data
      *
      * @return string   Complete URI
      */
@@ -157,7 +157,7 @@ class Request implements RequestInterface
     /**
      * Build Guzzle request option with $data as the body
      *
-     * @param array     $data   Array of body data
+     * @param array $data Array of body data
      *
      * @return array    Request options
      */
@@ -171,10 +171,10 @@ class Request implements RequestInterface
     /**
      * Making request using Guzzle
      *
-     * @param string $method   Type of request, either POST, GET, PUT or DELETE
+     * @param string $method Type of request, either POST, GET, PUT or DELETE
      * @param string $endpoint The operation / task for API
-     * @param array  $data     The parameter need to be passed
-     * @param array  $options  The options like header, body, etc
+     * @param array $data The parameter need to be passed
+     * @param array $options The options like header, body, etc
      * @return EntityBodyInterface|string
      * @throws \Exception
      */
@@ -227,7 +227,7 @@ class Request implements RequestInterface
                 $json = $this->response->getBody(true);
                 if (\Stackla\Validation\JsonValidator::validate($json, true)) {
                     $content = json_decode($json, true);
-                    if (isset($content['errors'])){
+                    if (isset($content['errors'])) {
                         $caller['object']->fromArray($content);
                     }
                 }
