@@ -2,6 +2,7 @@
 
 namespace Stackla\Core;
 
+use Stackla\Api\Tag;
 use Stackla\Validation\JsonValidator;
 use Stackla\Validation\ModelAccessorValidator;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -89,7 +90,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
 
     /**
      *
-     * @var \Stackla\Core\Credentials
+     * @var Credentials
      */
     protected $credentials;
 
@@ -103,8 +104,6 @@ class StacklaModel implements \IteratorAggregate, \Countable
      *                                      ]
      * @param string|array $data
      * @param bool $fetch Do get request to populate the field / property
-     *
-     * @return null
      */
     public function __construct($configs = array(), $data = null, $fetch = true)
     {
@@ -142,8 +141,6 @@ class StacklaModel implements \IteratorAggregate, \Countable
                 break;
             default:
         }
-
-        return $this;
     }
 
     /**
@@ -184,6 +181,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
      *
      * @param $key
      * @param $value
+     * @throws \Exception
      */
     public function __set($key, $value)
     {
@@ -227,13 +225,15 @@ class StacklaModel implements \IteratorAggregate, \Countable
                 $readonly = true;
             } else {
                 $clazz = isset($annotations['var']) ? $annotations['var'] : null;
-                $clazz = preg_replace("/(\[\]|\(\))$/", "", $clazz);
+                $clazz = preg_replace("/(\\[\\]|\\(\\))$/", "", $clazz);
                 if (!empty($value) && !in_array($clazz, $this->type_keywords)) {
                     switch ($clazz) {
-                        case '\Stackla\Core\StacklaDateTime':
+                        case 'StacklaDateTime':
+                        case StacklaDateTime::class:
                             $value = $this->initDate($value);
                             break;
-                        case '\Stackla\Api\Tag':
+                        case Tag::class:
+                        case 'Tag':
                             $value = $this->initTags($value);
                             break;
                         default:
@@ -338,6 +338,8 @@ class StacklaModel implements \IteratorAggregate, \Countable
     protected function resetTracking()
     {
         $this->_propMapUpdated = array();
+
+        return $this;
     }
 
     /**
@@ -430,7 +432,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
      */
     public function __toString()
     {
-        return $this->toJson(128);
+        return $this->toJSON(128);
     }
 
     /**
@@ -461,6 +463,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
      * @param array $arr Array of object data
      *
      * @return $this
+     * @throws \Exception
      */
     public function fromArray($arr)
     {
@@ -608,7 +611,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
      *
      * @return $this
      */
-    public function setCredentials(\Stackla\Core\Credentials $credentials)
+    public function setCredentials(Credentials $credentials)
     {
         $this->credentials = $credentials;
 
@@ -618,7 +621,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * API Credentials getter
      *
-     * @return \Stackla\Core\Credentials
+     * @return Credentials
      */
     public function getCredentials()
     {
@@ -628,14 +631,16 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * StacklaDateTime
      *
-     * @param integer|string|\Stackla\Core\StacklaDateTime $datetime
+     * @param integer|string|StacklaDateTime $datetime
+     *
+     * @return null|StacklaDateTime
      */
     protected function initDate($datetime)
     {
         if (gettype($datetime) === 'string') {
-            $d = new \Stackla\Core\StacklaDateTime($datetime);
+            $d = new StacklaDateTime($datetime);
         } elseif (gettype($datetime) === 'integer' && intval($datetime) > 0) {
-            $d = new \Stackla\Core\StacklaDateTime();
+            $d = new StacklaDateTime();
             $d->setTimestamp($datetime);
         } else {
             $d = null;
@@ -646,9 +651,9 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Tags
      *
-     * @param \Stackla\Api\Tag[] $tags
+     * @param string|int|string[]|int[] $tags
      *
-     * @return $this
+     * @return Tag[]
      */
     public function initTags($tags)
     {
@@ -656,16 +661,16 @@ class StacklaModel implements \IteratorAggregate, \Countable
         if (gettype($tags) === 'string') {
             $_tags = explode(',', $tags);
             foreach ($_tags as $_tag_id) {
-                $tag = new \Stackla\Api\Tag($this->configs, array('id' => $_tag_id), false);
+                $tag = new Tag($this->configs, $_tag_id, false);
                 $theTags[] = $tag;
             }
         } elseif (gettype($tags) === 'integer' && intval($tags) > 0) {
-            $tag = new \Stackla\Api\Tag($this->configs, array('id' => $tags), false);
+            $tag = new Tag($this->configs, $tags, false);
             $theTags[] = $tag;
         } elseif (is_array($tags)) {
             foreach ($tags as $key => $tag) {
                 if (gettype($tag) !== 'object') {
-                    $tags[$key] = new \Stackla\Api\Tag($this->configs, $tag, false);
+                    $tags[$key] = new Tag($this->configs, $tag, false);
                 }
             }
             $theTags = $tags;
@@ -676,8 +681,6 @@ class StacklaModel implements \IteratorAggregate, \Countable
 
     /**
      * This method will create new content in Stackla
-     *
-     * @param array $data Array of data
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -695,11 +698,12 @@ class StacklaModel implements \IteratorAggregate, \Countable
         return $json === false ? false : $this;
     }
 
+    /** @noinspection PhpDocSignatureInspection */
     /**
      * This method will return content
      *
      * @param integer $limit default value is 25
-     * @param integet $page default value is 1
+     * @param integer $page default value is 1
      * @param array $options optional data
      *
      * @return mixed    Will return FALSE if the API connection is failed
@@ -757,6 +761,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
+     * @throws \Exception
      */
     public function update($force = false)
     {
@@ -780,8 +785,6 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * This method will delete content from Stackla
      *
-     * @param integer $id Content id
-     *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
      */
@@ -800,6 +803,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     public function getValidations()
     {
         $validations = array();
+        /** @var Validation $validator */
         $validator = Validation::createValidatorBuilder()
             ->enableAnnotationMapping()
             ->getValidator();
@@ -900,7 +904,7 @@ class StacklaModel implements \IteratorAggregate, \Countable
     /**
      * Returns the items for iteration
      *
-     * @return \SplObjectStorage
+     * @return \ArrayIterator
      */
     public function getIterator()
     {

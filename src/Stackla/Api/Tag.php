@@ -2,6 +2,7 @@
 
 namespace Stackla\Api;
 
+use Stackla\Core\StacklaDateTime;
 use Stackla\Core\StacklaModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string $image_medium_url
  * @property integer $image_medium_width
  * @property integer $image_medium_height
- * @property-read \Stackla\Core\StacklaDateTime $created_at
+ * @property-read StacklaDateTime $created_at
  */
 class Tag extends StacklaModel implements TagInterface
 {
@@ -234,7 +235,7 @@ class Tag extends StacklaModel implements TagInterface
     /**
      * UTC timestamp of when this Tag was created.
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      */
     protected $_createdAt;
 
@@ -243,7 +244,7 @@ class Tag extends StacklaModel implements TagInterface
         $properties = $this->_propMap;
 
         foreach ($properties as $k => $v) {
-            if ($v instanceof \Stackla\Core\StacklaDateTime) {
+            if ($v instanceof StacklaDateTime) {
                 $properties[$k] = $v->getTimestamp();
             }
         }

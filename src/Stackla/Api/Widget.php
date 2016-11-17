@@ -484,7 +484,6 @@ class Widget extends StacklaModel implements WidgetInterface
                     'click_through_url' => '%5BORIGINAL_URL%5D',
                     'polling_frequency' => '30',
                     'widget_background' => "ffffff",
-                    'arrow_color' => "ffffff",
                     'arrow_color' => "333333",
                     'text_tile_user_name_font_color' => '666666',
                     'text_tile_user_name_font_size' => 24,

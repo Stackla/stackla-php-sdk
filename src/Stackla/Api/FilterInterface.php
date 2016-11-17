@@ -33,6 +33,7 @@ interface FilterInterface
     const FILTER_CLAIM_CLAIMED = 'claimed_only';
     const FILTER_CLAIM_UNCLAIMMED = 'unclaimed_only';
 
+    /** @noinspection PhpDocSignatureInspection */
     /**
      * Get contents of filter
      *

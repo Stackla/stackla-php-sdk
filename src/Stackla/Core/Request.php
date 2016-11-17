@@ -6,7 +6,10 @@ use Guzzle\Http\Client;
 use Guzzle\Http\EntityBodyInterface;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Stackla\Exception\ApiException;
+use Stackla\Validation\JsonValidator;
 
 class Request implements RequestInterface
 {
@@ -24,7 +27,7 @@ class Request implements RequestInterface
 
     /**
      * Stackla credentials
-     * @var \Stackla\Core\Credentials
+     * @var Credentials
      */
     protected $credentials;
 
@@ -42,7 +45,7 @@ class Request implements RequestInterface
 
     /**
      * Log
-     * @var \Monolog\Logger
+     * @var Logger
      */
     protected $logger = null;
 
@@ -56,15 +59,15 @@ class Request implements RequestInterface
      */
     private $client;
 
-    public function __construct(\Stackla\Core\Credentials $credentials, $host, $stack)
+    public function __construct(Credentials $credentials, $host, $stack)
     {
         $this->host = $host;
         $this->stack = $stack;
         $this->credentials = $credentials;
         $this->client = new Client();
         if (class_exists("\\Monolog\\Logger")) {
-            $this->logger = new \Monolog\Logger(get_class($this));
-            $this->logger->pushHandler(new \Monolog\Handler\StreamHandler(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'stackla-request.log', \Monolog\Logger::INFO));
+            $this->logger = new Logger(get_class($this));
+            $this->logger->pushHandler(new StreamHandler(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'stackla-request.log', Logger::INFO));
         }
     }
 
@@ -155,20 +158,6 @@ class Request implements RequestInterface
     }
 
     /**
-     * Build Guzzle request option with $data as the body
-     *
-     * @param array $data Array of body data
-     *
-     * @return array    Request options
-     */
-    private function buildOptions(array $data = array())
-    {
-        $options = array();
-        $options['body'] = $data;
-        return $options;
-    }
-
-    /**
      * Making request using Guzzle
      *
      * @param string $method Type of request, either POST, GET, PUT or DELETE
@@ -223,9 +212,9 @@ class Request implements RequestInterface
         if ($this->response->getStatusCode() >= 400) {
             $bt = debug_backtrace();
             $caller = $bt[2];
-            if (isset($caller['class']) && $caller['class'] === get_class(new \Stackla\Core\StacklaModel())) {
+            if (isset($caller['class']) && $caller['class'] === get_class(new StacklaModel())) {
                 $json = $this->response->getBody(true);
-                if (\Stackla\Validation\JsonValidator::validate($json, true)) {
+                if (JsonValidator::validate($json, true)) {
                     $content = json_decode($json, true);
                     if (isset($content['errors'])) {
                         $caller['object']->fromArray($content);

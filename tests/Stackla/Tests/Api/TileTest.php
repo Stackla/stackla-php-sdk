@@ -48,8 +48,8 @@ class TileTest extends \PHPUnit_Framework_TestCase
         }
 
 
-        // wait 10 seconds for content to be ingested
-        sleep(10);
+        // wait 15 seconds for content to be ingested
+        sleep(15);
 
         if ($tile->sta_feed_id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
@@ -166,6 +166,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         $sta_feed_id = $tileRes->sta_feed_id;
         $tagCount = count($tileRes->tags);
         $tag = $this->stack->instance('tag', DEFAULT_TAG_ID);
+        /** @var Tile $tile */
         $tile = $this->stack->instance('tile');
         $tile->getByGuid($sta_feed_id);
         $tile->deleteTag($tag);

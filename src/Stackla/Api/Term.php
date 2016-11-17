@@ -2,6 +2,7 @@
 
 namespace Stackla\Api;
 
+use Stackla\Core\StacklaDateTime;
 use Stackla\Core\StacklaModel;
 
 /**
@@ -49,10 +50,10 @@ use Stackla\Core\StacklaModel;
  * @property string $selector
  * @property bool $subscribed_to_updates
  * @property string $page_type
- * @property \Stackla\Api\Tag[] $tags
- * @property-read \Stackla\Core\StacklaDateTime $created
- * @property-read \Stackla\Core\StacklaDateTime $modified
- * @property-read \Stackla\Core\StacklaDateTime $last_ingestion_post
+ * @property Tag[] $tags
+ * @property-read StacklaDateTime $created
+ * @property-read StacklaDateTime $modified
+ * @property-read StacklaDateTime $last_ingestion_post
  */
 class Term extends StacklaModel implements TermInterface
 {
@@ -365,7 +366,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Tags for the term.
      *
-     * @var \Stackla\Api\Tag[]
+     * @var Tag[]
      *
      */
     protected $_tags;
@@ -373,7 +374,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Creation date.
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      *
      */
     protected $_created;
@@ -381,7 +382,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Modified date.
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      *
      */
     protected $_modified;
@@ -389,7 +390,7 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Last ingestion post date
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      *
      */
     protected $_lastIngestionPost;
@@ -427,7 +428,7 @@ class Term extends StacklaModel implements TermInterface
         if (!$this->getFilter()) {
             $this->setFilter(array($filter));
         } else {
-            $this->setFilter($this->getFilter, array($filter));
+            $this->setFilter(array_merge($this->getFilter(), array($filter)));
         }
 
         return $this;
@@ -473,7 +474,7 @@ class Term extends StacklaModel implements TermInterface
         if (!$this->getExcludeFilter()) {
             $this->setExcludeFilter(array($filter));
         } else {
-            $this->setExcludeFilter($this->getExcludeFilter, array($filter));
+            $this->setExcludeFilter(array_merge($this->getExcludeFilter(), array($filter)));
         }
 
         return $this;
@@ -519,7 +520,7 @@ class Term extends StacklaModel implements TermInterface
         if (!$this->getFanFilter()) {
             $this->setFanFilter(array($filter));
         } else {
-            $this->setFanFilter($this->getFanFilter, array($filter));
+            $this->setFanFilter(array_merge($this->getFanFilter(), array($filter)));
         }
 
         return $this;
@@ -565,7 +566,7 @@ class Term extends StacklaModel implements TermInterface
         if (!$this->getFanExcludeFilter()) {
             $this->setFanExcludeFilter(array($filter));
         } else {
-            $this->setFanExcludeFilter($this->getFanExcludeFilter, array($filter));
+            $this->setFanExcludeFilter(array_merge($this->getFanExcludeFilter(), array($filter)));
         }
 
         return $this;
@@ -574,13 +575,16 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Associate single tag to term
      *
-     * @param \Stackla\Api\Tag $tag
+     * @param Tag $tag
      *
      * @return $this
+     * @throws \Exception
      */
-    public function associateTag(\Stackla\Api\Tag $tag)
+    public function associateTag(Tag $tag)
     {
-        if (empty($tag->id)) return false;
+        if (empty($tag->id)) {
+            return $this;
+        }
 
         $endpoint = sprintf("%s/%s/tags/%s", $this->endpoint, $this->id, $tag->id);
 
@@ -595,7 +599,7 @@ class Term extends StacklaModel implements TermInterface
         if (!$this->tags) {
             $this->tags = array($tag);
         } else {
-            $this->tags = array_merger($this->tags, array($tag));
+            $this->tags = array_merge($this->tags, array($tag));
         }
 
         return $this;
@@ -604,13 +608,16 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Disassosiate single tag from term
      *
-     * @param \Stackla\Api\Tag $tag
+     * @param Tag $tag
      *
      * @return $this
+     * @throws \Exception
      */
-    public function disassosiateTag(\Stackla\Api\Tag $tag)
+    public function disassosiateTag(Tag $tag)
     {
-        if (empty($tag->id)) return false;
+        if (empty($tag->id)) {
+            return $this;
+        }
 
         // get all assosiated tags
         $tags = $this->tags;
@@ -628,7 +635,7 @@ class Term extends StacklaModel implements TermInterface
         }
 
         if (!$foundTag) {
-            return false;
+            return $this;
         }
 
         $endpoint = sprintf("%s/%s/tags/%s", $this->endpoint, $this->id, $tag->id);
@@ -649,11 +656,11 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Add tag to tags list
      *
-     * @param \Stackla\Api\Tag $tag
+     * @param Tag $tag
      *
      * @return $this
      */
-    public function addTag(\Stackla\Api\Tag $tag)
+    public function addTag(Tag $tag)
     {
         if (!$this->tags) {
             $this->tags = array($tag);
@@ -677,11 +684,11 @@ class Term extends StacklaModel implements TermInterface
     /**
      * Disassosiate single tag from term
      *
-     * @param \Stackla\Api\Tag $tag
+     * @param Tag $tag
      *
      * @return $this
      */
-    public function deleteTag(\Stackla\Api\Tag $tag)
+    public function deleteTag(Tag $tag)
     {
         if ($this->tags) {
             $tagExist = false;
@@ -697,12 +704,15 @@ class Term extends StacklaModel implements TermInterface
                 $this->tags = $tags;
             }
         }
+
+        return $this;
     }
 
     /**
      * Validate user term if term type is TYPE_USER, TYPE_SET or TYPE_GALLERY
      *
      * @return mixed    return array of user information of False if invalid user term
+     * @throws \Exception
      */
     protected function validateUser()
     {
@@ -730,7 +740,6 @@ class Term extends StacklaModel implements TermInterface
                     case Stackla::NETWORK_RSS:
                         return uniqid();
                         break;
-                    case Stackla::NETWORK_FACEBOOK:
                     case Stackla::NETWORK_TWITTER:
                     case Stackla::NETWORK_YOUTUBE:
                     case Stackla::NETWORK_INSTAGRAM:
@@ -776,13 +785,13 @@ class Term extends StacklaModel implements TermInterface
         $properties = $this->_propMap;
 
         foreach ($properties as $k => $v) {
-            if ($v instanceof \Stackla\Core\StacklaDateTime) {
+            if ($v instanceof StacklaDateTime) {
                 $properties[$k] = $v->getTimestamp();
             } elseif ($k === 'tags') {
                 $tags = array();
                 if (is_array($v)) {
                     foreach ($v as $tag) {
-                        if (is_object($tag) && get_class($tag) == get_class(new \Stackla\Api\Tag())) {
+                        if (is_object($tag) && get_class($tag) == get_class(new Tag())) {
                             $tags[] = $tag->id;
                         } else {
                             $tags[] = $tag;

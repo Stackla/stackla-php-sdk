@@ -57,7 +57,7 @@ class Credentials
 
     /**
      * OAuth2 access token expiring time
-     * @var timestamp
+     * @var int
      */
     public $expiredIn;
 
@@ -65,6 +65,7 @@ class Credentials
      * OAuth2 state
      */
     private $state = "stackla-php-sdk";
+    private $apiKey;
 
     /**
      * Constructor
@@ -75,8 +76,7 @@ class Credentials
      * @param string $stack API stack
      * @param string $type Authentication type, either TYPE_OAUTH2 or TYPE_APIKEY
      */
-    public function __construct($host = '', $token = '', $stack = '', $type =
-    Credentials::TYPE_OAUTH2)
+    public function __construct($host = '', $token = '', $stack = '', $type = Credentials::TYPE_OAUTH2)
     {
         $this->host = $host;
         $this->token = $token;
@@ -109,7 +109,7 @@ class Credentials
         $this->host = $host;
     }
 
-    public function setKey($key)
+    public function setKey($apiKey)
     {
         $this->apiKey = $apiKey;
     }
@@ -133,6 +133,7 @@ class Credentials
      * @param string $redirect_uri
      *
      * @return $this
+     * @throws \Exception
      */
     public function generateToken($client_id, $client_secret, $access_code, $redirect_uri)
     {
@@ -152,9 +153,8 @@ class Credentials
         $response = json_decode($json, true);
 
         if (isset($response['error']) && count($response['error'])) {
-            throw new \Exception("Error occure: " .
+            throw new \Exception("Error occurred: " .
                 $response['error_description']);
-            return false;
         }
 
         $this->token = $response['access_token'];

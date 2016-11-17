@@ -2,6 +2,7 @@
 
 namespace Stackla\Api;
 
+use Stackla\Core\StacklaDateTime;
 use Stackla\Core\StacklaModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @property integer $term_id
  * @property-read string $_id
+ * @property-read string $id
  * @property-read string $sta_feed_id
  * @property string $guid
  * @property string $name
@@ -23,7 +25,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property-read string $source_user_id
  * @property string $width_ratio
  * @property string $height_ratio
- * @property string $original_url
  * @property string $image
  * @property string $image_url
  * @property string $image_small_url
@@ -40,9 +41,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string $message
  * @property-read string $original_url
  * @property string $html
- * @property \Stackla\Api\Tag[] $tags
- * @property-read string|enum $source
- * @property string|enum $status
+ * @property Tag[] $tags
+ * @property-read string $source
+ * @property string $status
  * @property string $longitude
  * @property string $latitude
  * @property string[] $disabled_reason
@@ -54,9 +55,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property-read integer $numUps
  * @property-read integer $numDowns
  * @property-read integer $numComments
- * @property-read \Stackla\Core\StacklaDateTime $created_at
- * @property-read \Stackla\Core\StacklaDateTime $updated_at
- * @property-read \Stackla\Core\StacklaDateTime $source_created_at
+ * @property-read StacklaDateTime $created_at
+ * @property-read StacklaDateTime $updated_at
+ * @property-read StacklaDateTime $source_created_at
  */
 class Tile extends StacklaModel implements TileInterface
 {
@@ -326,7 +327,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Tile's tags
      *
-     * @var \Stackla\Api\Tag[]
+     * @var Tag[]
      *
      */
     protected $_tags;
@@ -443,7 +444,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Tile's creation date
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      *
      */
     protected $_createdAt;
@@ -451,7 +452,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Tile's updated date
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      *
      */
     protected $_updatedAt;
@@ -459,7 +460,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Source created time
      *
-     * @var \Stackla\Core\StacklaDateTime
+     * @var StacklaDateTime
      */
     protected $_sourceCreatedAt;
 
@@ -498,7 +499,7 @@ class Tile extends StacklaModel implements TileInterface
      *
      * @return $this
      */
-    public function addTag(\Stackla\Api\Tag $tag)
+    public function addTag(Tag $tag)
     {
         if (!$this->tags) {
             $this->tags = array($tag);
@@ -522,11 +523,11 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Delete single tag from term
      *
-     * @param \Stackla\Api\Tag $tag
+     * @param Tag $tag
      *
      * @return $this
      */
-    public function deleteTag(\Stackla\Api\Tag $tag)
+    public function deleteTag(Tag $tag)
     {
         if ($this->tags) {
             $tagExist = false;
@@ -542,6 +543,8 @@ class Tile extends StacklaModel implements TileInterface
                 $this->tags = $tags;
             }
         }
+
+        return $this;
     }
 
     public function toArray($only_updated = false)
@@ -553,14 +556,14 @@ class Tile extends StacklaModel implements TileInterface
                 $tags = array();
                 if (is_array($v)) {
                     foreach ($v as $tag) {
-                        if (is_object($tag) && get_class($tag) == get_class(new \Stackla\Api\Tag())) {
+                        if (is_object($tag) && get_class($tag) == get_class(new Tag())) {
                             $tags[] = $tag->id;
                         } else {
                             $tags[] = $tag;
                         }
                     }
-                    $properties[$k] = implode(',', $tags);
                 }
+                $properties[$k] = implode(',', $tags);
             }
         }
 
@@ -591,7 +594,7 @@ class Tile extends StacklaModel implements TileInterface
      *
      * @param integer $filter_id filter id
      * @param integer $limit default value is 25
-     * @param integet $page default value is 1
+     * @param integer $page default value is 1
      * @param array $options optional data
      * @param bool $force force to
      *

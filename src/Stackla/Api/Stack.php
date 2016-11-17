@@ -2,6 +2,8 @@
 
 namespace Stackla\Api;
 
+use Stackla\Core\Credentials;
+
 class Stack
 {
     /**
@@ -14,21 +16,17 @@ class Stack
     /**
      * Instantiated Stackla object
      *
-     * @param \Stackla\Core\Credetials $credentials
+     * @param Credentials $credentials
      * @param string $host
      * @param string $stack
-     *
-     * @return $this
      */
-    public function __construct(\Stackla\Core\Credentials $credentials, $host, $stack)
+    public function __construct(Credentials $credentials, $host, $stack)
     {
         $this->configs = array(
             'credentials' => $credentials,
             'host' => $host,
             'stack' => $stack
         );
-
-        return $this;
     }
 
     /**

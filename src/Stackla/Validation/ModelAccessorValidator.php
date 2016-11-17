@@ -31,16 +31,6 @@ class ModelAccessorValidator
                 return false;
             } //Check if both getter and setter exists for given attribute
             elseif (!method_exists($class, $methodName)) {
-                //Delegate the error based on the choice
-                $className = is_object($class) ? get_class($class) : (string)$class;
-                $errorMessage = "Missing Accessor: $className:$methodName. You might be using older version of SDK.";
-
-                // if (class_exists("\Monolog\Logger")) {
-                //     $logger = new \Monolog\Logger(__CLASS__);
-                //     $logger->pushHandler(new \Monolog\Handler\StreamHandler(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'stackla-request.log', \Monolog\Logger::INFO));
-                //     $logger->addInfo($errorMessage);
-                // }
-
                 return false;
             }
         }
@@ -71,15 +61,6 @@ class ModelAccessorValidator
         } //Check if both getter and setter exists for given attribute
         elseif (!property_exists($class, $propertyName)) {
             //Delegate the error based on the choice
-            $className = is_object($class) ? get_class($class) : (string)$class;
-            $errorMessage = "Missing Accessor: $className:$propertyName. You might be using older version of SDK.";
-
-            if (class_exists("\Monolog\Logger")) {
-                $logger = new \Monolog\Logger(__CLASS__);
-                $logger->pushHandler(new \Monolog\Handler\StreamHandler(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'stackla-request.log', \Monolog\Logger::INFO));
-                $logger->addInfo($errorMessage);
-            }
-
             return false;
         }
 
