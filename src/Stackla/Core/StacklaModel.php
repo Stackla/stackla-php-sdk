@@ -229,11 +229,11 @@ class StacklaModel implements \IteratorAggregate, \Countable
                 if (!empty($value) && !in_array($clazz, $this->type_keywords)) {
                     switch ($clazz) {
                         case 'StacklaDateTime':
-                        case StacklaDateTime::class:
+                        case 'Stackla\Core\StacklaDateTime':
                             $value = $this->initDate($value);
                             break;
-                        case Tag::class:
                         case 'Tag':
+                        case 'Stackla\Api\Tag':
                             $value = $this->initTags($value);
                             break;
                         default:

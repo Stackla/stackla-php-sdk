@@ -6,7 +6,7 @@ This SDK is intended for PHP developers to enable them to integrate Stackla REST
 We are continuously working on improving both the SDK and the documentation around it, so please feel free to give us feedback and any reports of issues to [platform@stackla.com](mailto:platform@stackla.com).
 
 ## System requirements ##
-* PHP >= 5.5
+* PHP >= 5.4
 * [Composer](https://getcomposer.org/)
 
 ## PHPUnit ##

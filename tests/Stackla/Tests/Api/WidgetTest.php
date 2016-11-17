@@ -24,7 +24,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         // Abort if we use a read only token
-        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+        if (!ACCESS_TOKEN && ACCESS_TOKEN_PERMISSION == 'r') {
             $this->markTestSkipped(
               'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
             );
