@@ -23,9 +23,16 @@ class TileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         $tile = $this->stack->instance('tile');
         $tile->name = 'Test tile\'s name';
-        $tile->message = 'Test tile\'s message #testtile ' . date('Y-m-d h:i:s');
+        $tile->message = 'Test tile\'s message #testtile '.date('Y-m-d h:i:s');
         $tile->term_id = STACKLA_POST_TERM_ID;
         $tile->image_url = 'https://scontent-syd2-1.cdninstagram.com/t51.2885-15/e35/14374061_652837251542826_5176014892573917184_n.jpg';
 
@@ -33,7 +40,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
 
         if (count($validations)) {
             foreach ($validations as $validation) {
-                echo $validation['property'] . " -- " . $validation['message'] . ";\n";
+                echo $validation['property']." -- ".$validation['message'].";\n";
             }
             throw new \Exception("Invalid data for Tile");
         }
@@ -44,7 +51,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(200, $tile->getResponseCode(), "Need to be 200");
             $this->assertNotEmpty($tile->sta_feed_id, "Tile created without any ID");
             $this->assertNotEmpty($tile->created_at, "Tile created without any create time");
-            $this->assertEquals(0, count($tile->errors), "Error: " . json_encode($tile->errors));
+            $this->assertEquals(0, count($tile->errors), "Error: ".json_encode($tile->errors));
         }
 
 
@@ -54,7 +61,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         if ($tile->sta_feed_id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
 
-            $jsonContent = $request->sendGet('tiles/guid:' . $tile->sta_feed_id);
+            $jsonContent = $request->sendGet('tiles/guid:'.$tile->sta_feed_id);
 
             if ($jsonContent === false) {
                 $response = $request->getResponse();
@@ -89,11 +96,31 @@ class TileTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testFetchById()
+    {
+        $tile = $this->stack->instance('tile');
+        $tile->getById(TILE_ID);
+
+        $tiles = $tile->getResults();
+        if (count($tiles)) {
+            $tileClass = get_class(new Tile());
+            foreach ($tiles as $tile) {
+                $this->assertEquals($tileClass, get_class($tile), 'Tile is not using '.$tileClass.' class; '.$tile->toJSON());
+            }
+        }
+
+        $this->assertEquals(TILE_ID, $tile->id, 'ID must be equal');
+        $this->assertEquals(get_class(new StacklaDateTime()), get_class($tile->created_at), 'created_on must be DateTime object');
+        $this->assertGreaterThanOrEqual(1, count($tile));
+        $this->assertEquals(0, count($tile->errors));
+    }
+
     /**
      * @depends testCreate
      */
-    public function testFetchById(Tile $tileRes = null)
+    public function testFetchByGuid(Tile $tileRes = null)
     {
+        // guid is an alias of sta_feed_id
         $sta_feed_id = $tileRes->sta_feed_id;
         $tile = $this->stack->instance('tile');
         //$tile = new Tile($this->credentials);
@@ -103,7 +130,7 @@ class TileTest extends \PHPUnit_Framework_TestCase
         if (count($tiles)) {
             $tileClass = get_class(new Tile());
             foreach ($tiles as $tile) {
-                $this->assertEquals($tileClass, get_class($tile), 'Tile is not using ' . $tileClass . ' class; ' . $tile->toJSON());
+                $this->assertEquals($tileClass, get_class($tile), 'Tile is not using '.$tileClass.' class; '.$tile->toJSON());
             }
         }
 
@@ -121,8 +148,8 @@ class TileTest extends \PHPUnit_Framework_TestCase
         //$tile = new Tile($this->credentials);
         $tile = $this->stack->instance('tile');
         $tile->getByGuid($tileRes->sta_feed_id);
-        $newName = $tileRes->name . ' - Edited';
-        $newMessage = $tileRes->message . ' - Edited';
+        $newName = $tileRes->name.' - Edited';
+        $newMessage = $tileRes->message.' - Edited';
         $tile->name = $newName;
         $tile->message = $newMessage;
 
@@ -154,8 +181,8 @@ class TileTest extends \PHPUnit_Framework_TestCase
 
         $tileTags = $tile2->tags;
 
-        $this->assertGreaterThan(0, count($tile2->tags), 'No tag assosiated to this tile');
-        $this->assertEquals((int) DEFAULT_TAG_ID, $tileTags[count($tileTags) - 1]->id, 'Tag ID is not the same');
+        $this->assertGreaterThan(0, count($tile2->tags), 'No tag associated to this tile');
+        $this->assertEquals((int)DEFAULT_TAG_ID, $tileTags[count($tileTags) - 1]->id, 'Tag ID is not the same');
     }
 
     /**
@@ -169,13 +196,14 @@ class TileTest extends \PHPUnit_Framework_TestCase
         /** @var Tile $tile */
         $tile = $this->stack->instance('tile');
         $tile->getByGuid($sta_feed_id);
+        // TODO: fix this test, seems to occure server side...
         $tile->deleteTag($tag);
         $tile->update();
 
         $tile2 = $this->stack->instance('tile');
         $tile2->getByGuid($sta_feed_id);
 
-        $this->assertEquals($tagCount, count($tile2->tags), 'Tag assosiated to this tile has not been deleted');
+        $this->assertEquals($tagCount, count($tile2->tags), 'Tag associated to this tile has not been deleted');
     }
 
     /**

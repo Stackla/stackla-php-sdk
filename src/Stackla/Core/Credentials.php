@@ -5,7 +5,7 @@ namespace Stackla\Core;
 /**
  * Credentials
  *
- * @packages Stackla\Core
+ * @package Stackla\Core
  *
  * @property    string $host
  * @property    string $stack

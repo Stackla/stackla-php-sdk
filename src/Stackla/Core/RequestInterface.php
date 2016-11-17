@@ -34,7 +34,7 @@ interface RequestInterface
      * @param string $endpoint The operation / task for API
      * @param array $data The parameter need to be passed
      *
-     * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
+     * @return \GuzzleHttp\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
     public function sendGet($endpoint, array $data = array());
@@ -45,7 +45,7 @@ interface RequestInterface
      * @param string $endpoint The operation / task for API
      * @param array $data The parameter need to be passed
      *
-     * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
+     * @return \GuzzleHttp\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
     public function sendPost($endpoint, array $data = array());
@@ -56,7 +56,7 @@ interface RequestInterface
      * @param string $endpoint The operation / task for API
      * @param array $data The parameter need to be passed
      *
-     * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
+     * @return \GuzzleHttp\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
     public function sendPut($endpoint, array $data = array());
@@ -67,7 +67,7 @@ interface RequestInterface
      * @param string $endpoint The operation / task for API
      * @param array $data The parameter need to be passed
      *
-     * @return \Guzzle\Http\Message\Response     This will return FALSE if something wrong happened
+     * @return \GuzzleHttp\Message\Response     This will return FALSE if something wrong happened
      *                                          or return json object
      */
     public function sendDelete($endpoint, array $data = array());
@@ -79,15 +79,15 @@ interface RequestInterface
 
     /**
      * This method will return the request object
-     *
-     * @return \Guzzle\Http\Message\Request
+     * 
+     * @return \GuzzleHttp\Message\Request
      */
     public function getRequest();
 
     /**
      * This method will return the response object
-     *
-     * @return \Guzzle\Http\Message\Response
+     * 
+     * @return \GuzzleHttp\Message\Response
      */
     public function getResponse();
 }

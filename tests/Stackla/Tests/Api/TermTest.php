@@ -26,6 +26,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         // $term = new Term($this->credentials);
         $term = $this->stack->instance('term');
         $term->name = 'Test term ' . $this->uniqId;
@@ -42,13 +49,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
         if ($res) {
             $this->assertGreaterThan(0, $term->id, "Term created without any ID");
             // $this->assertNotEmpty($term->created, "Term created without any create time");
-            $this->assertEquals(0, count($term->errors), "Error: " . json_encode($term->errors));
+            $this->assertEquals(0, count($term->errors), "Error: ".json_encode($term->errors));
         }
 
         if ($term->id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
 
-            $jsonContent = $request->sendGet('terms/' . $term->id);
+            $jsonContent = $request->sendGet('terms/'.$term->id);
 
             if ($jsonContent === false) {
                 $response = $request->getResponse();
@@ -75,6 +82,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateTwitterTerm()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         $term = $this->stack->instance('term');
         $term->name = 'Test user type term';
         $term->display_name = 'Test user term';
@@ -90,13 +104,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
         if ($res) {
             $this->assertGreaterThan(0, $term->id, "Term created without any ID");
             // $this->assertNotEmpty($term->created, "Term created without any create time");
-            $this->assertEquals(0, count($term->errors), "Error: " . json_encode($term->errors));
+            $this->assertEquals(0, count($term->errors), "Error: ".json_encode($term->errors));
         }
 
         if ($term->id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
 
-            $jsonContent = $request->sendGet('terms/' . $term->id);
+            $jsonContent = $request->sendGet('terms/'.$term->id);
 
             if ($jsonContent === false) {
                 $response = $request->getResponse();
@@ -123,6 +137,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateInstagramTerm()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         $term = $this->stack->instance('term');
         $term->name = 'Test user type term';
         $term->display_name = 'Test user term';
@@ -138,13 +159,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
         if ($res) {
             $this->assertGreaterThan(0, $term->id, "Term created without any ID");
             // $this->assertNotEmpty($term->created, "Term created without any create time");
-            $this->assertEquals(0, count($term->errors), "Error: " . json_encode($term->errors));
+            $this->assertEquals(0, count($term->errors), "Error: ".json_encode($term->errors));
         }
 
         if ($term->id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
 
-            $jsonContent = $request->sendGet('terms/' . $term->id);
+            $jsonContent = $request->sendGet('terms/'.$term->id);
 
             if ($jsonContent === false) {
                 $response = $request->getResponse();
@@ -171,6 +192,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFacebookTerm()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         $term = $this->stack->instance('term');
         $term->name = 'Test user type term';
         $term->display_name = 'Test user term';
@@ -186,13 +214,13 @@ class TermTest extends \PHPUnit_Framework_TestCase
         if ($res) {
             $this->assertGreaterThan(0, $term->id, "Term created without any ID");
             // $this->assertNotEmpty($term->created, "Term created without any create time");
-            $this->assertEquals(0, count($term->errors), "Error: " . json_encode($term->errors));
+            $this->assertEquals(0, count($term->errors), "Error: ".json_encode($term->errors));
         }
 
         if ($term->id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
 
-            $jsonContent = $request->sendGet('terms/' . $term->id);
+            $jsonContent = $request->sendGet('terms/'.$term->id);
 
             if ($jsonContent === false) {
                 $response = $request->getResponse();
@@ -217,9 +245,6 @@ class TermTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    // /**
-    //  * @depends testCreate
-    //  */
     public function testFetch()
     {
         $term = $this->stack->instance('term');
@@ -243,7 +268,7 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
         $tagClass = get_class(new Tag());
         foreach ($tags as $tag) {
-            $this->assertEquals($tagClass, get_class($tag), 'Tag is not using ' . $tagClass . ' class; ' . json_encode($tag));
+            $this->assertEquals($tagClass, get_class($tag), 'Tag is not using '.$tagClass.' class; '.json_encode($tag));
         }
 
         $this->assertEquals($termid, $term->id, 'ID must be equal');
@@ -252,23 +277,20 @@ class TermTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($term->errors));
     }
 
-    /**
-     * @depends testCreate
-     */
-    public function testFetchById(Term $termRes)
+    public function testFetchById()
     {
         $term = $this->stack->instance('term');
-        $term->getById($termRes->id);
+        $term->getById(STACKLA_POST_TERM_ID);
 
         $tags = $term->tags;
         if ($tags) {
             $tagClass = get_class(new Tag());
             foreach ($tags as $tag) {
-                $this->assertEquals($tagClass, get_class($tag), 'Tag is not using ' . $tagClass . ' class; ' . json_encode($tag));
+                $this->assertEquals($tagClass, get_class($tag), 'Tag is not using '.$tagClass.' class; '.json_encode($tag));
             }
         }
 
-        $this->assertEquals($termRes->id, $term->id, 'ID must be equal');
+        $this->assertEquals(STACKLA_POST_TERM_ID, $term->id, 'ID must be equal');
         $this->assertEquals(get_class(new StacklaDateTime()), get_class($term->created), 'created_on must be DateTime object');
         $this->assertGreaterThanOrEqual(1, count($term));
         $this->assertEquals(0, count($term->errors));
@@ -283,7 +305,7 @@ class TermTest extends \PHPUnit_Framework_TestCase
         // $tag->get();
         $term = $this->stack->instance('term');
         $term->getById($termRes->id);
-        $newName = $termRes->name . ' - Edited';
+        $newName = $termRes->name.' - Edited';
         $term->name = $newName;
         $term->display_name = $newName;
         // $term->tags = $tag->getResults();
@@ -310,8 +332,8 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
         $termTags = $term->tags;
 
-        $this->assertGreaterThan(0, count($term->tags), 'No tag assosiated to this term');
-        $this->assertEquals((int) DEFAULT_TAG_ID, $termTags[0]->id, 'Tag ID is not the same');
+        $this->assertGreaterThan(0, count($term->tags), 'No tag associated to this term');
+        $this->assertEquals((int)DEFAULT_TAG_ID, $termTags[0]->id, 'Tag ID is not the same');
     }
 
     /**
@@ -325,7 +347,7 @@ class TermTest extends \PHPUnit_Framework_TestCase
 
         $term = $this->stack->instance('term', $termRes->id);
 
-        $this->assertEquals(0, count($term->tags), 'No tag assosiated to this term');
+        $this->assertEquals(0, count($term->tags), 'No tag associated to this term');
     }
 
     /**
@@ -339,7 +361,7 @@ class TermTest extends \PHPUnit_Framework_TestCase
             $term = $this->stack->instance('term');
             $term->getById($termRes->id);
 
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             // exception's been throw because of the requested term is not exist
         }
         // $term should be empty because the deletion

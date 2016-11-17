@@ -16,4 +16,3 @@ if ($response === false) {
 }
 echo "======";
 echo "</pre>";
-?>

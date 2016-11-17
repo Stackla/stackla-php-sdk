@@ -20,7 +20,7 @@ function gulpWatch(){
     gulp.watch(paths.test+'**/*.php', ['phpunit']);
 }
 
-gulp.task('phpunit', shell.task(['phpunit -c '+paths.root+'phpunit.xml']));
+gulp.task('phpunit', shell.task(['vendor/bin/phpunit -c '+paths.root+'phpunit.xml']));
 
 gulp.task('watch', function(){
     return gulpWatch();
