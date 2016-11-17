@@ -1,4 +1,6 @@
 # Stackla PHP SDK #
+[![Build Status](https://travis-ci.org/Stackla/stackla-php-sdk.svg?branch=master)](https://travis-ci.org/Stackla/stackla-php-sdk)
+
 Welcome to the Stackla PHP SDK GitHub repository!
 
 This SDK is intended for PHP developers to enable them to integrate Stackla RESTful APIs into their applications with greater ease. You can find more information on working with Stackla APIs on the [Stackla Developer Portal](http://developer.stackla.com/).
