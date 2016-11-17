@@ -198,7 +198,7 @@ class Request implements RequestInterface
                         $this->request = $this->client->post($uri, $options, $data);
                         break;
                     case 'PUT':
-                        $this->request = $this->client->put($uri, $options, $data);
+                        $this->request = $this->client->put($uri, $options);
                         break;
                     case 'DELETE':
                         $this->request = $this->client->delete($uri, $options, $data);
