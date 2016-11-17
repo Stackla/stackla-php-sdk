@@ -12,6 +12,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
 {
     private $credentials;
     private $stack;
+
     public function __construct()
     {
         $this->credentials = new Credentials(API_HOST, ACCESS_TOKEN, API_STACK);
@@ -21,6 +22,13 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
+        // Abort if we use a read only token
+        if (!empty(ACCESS_TOKEN) && ACCESS_TOKEN_PERMISSION == 'r') {
+            $this->markTestSkipped(
+              'This test need an ACCESS_TOKEN_PERMISSION with read and write permission.'
+            );
+        }
+
         $tag = $this->stack->instance('Tag');
         $tag->tag = 'Test tag';
         $tag->slug = 'Test tag slug';
@@ -32,7 +40,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
         if (count($validations)) {
             foreach ($validations as $validation) {
-                echo $validation['property'] . " -- " . $validation['message'] . "\n";
+                echo $validation['property']." -- ".$validation['message']."\n";
             }
             throw new \Exception("invalid properties");
         }
@@ -42,12 +50,12 @@ class TagTest extends \PHPUnit_Framework_TestCase
         if ($res) {
             $this->assertGreaterThan(0, $tag->id, "Tag created without any ID");
             $this->assertNotEmpty($tag->created_at, "Tag created without any timestamp");
-            $this->assertEquals(0, count($tag->errors), "Error: " . json_encode($tag->errors));
+            $this->assertEquals(0, count($tag->errors), "Error: ".json_encode($tag->errors));
         }
 
         if ($tag->id) {
             $request = new Request($this->credentials, API_HOST, API_STACK);
-            $jsonContent = $request->sendGet('tags/' .  $tag->id);
+            $jsonContent = $request->sendGet('tags/'.$tag->id);
 
             $resTag = json_decode($jsonContent, true);
 
@@ -65,9 +73,6 @@ class TagTest extends \PHPUnit_Framework_TestCase
         return $tag;
     }
 
-    // /**
-    //  * @depends testCreate
-    //  */
     public function testFetch()
     {
         $tag = $this->stack->instance('Tag');
@@ -79,16 +84,13 @@ class TagTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @depends testCreate
-     */
-    public function testFetchById(Tag $tagRes)
+    public function testFetchById()
     {
-        $tag = $this->stack->instance('tag', $tagRes->id);
+        $tag = $this->stack->instance('tag', DEFAULT_TAG_ID);
 
         $this->assertGreaterThan(0, count($tag), 'Get request error');
 
-        $this->assertEquals($tagRes->id, $tag->id, 'ID must be equal');
+        $this->assertEquals(DEFAULT_TAG_ID, $tag->id, 'ID must be equal');
         $this->assertEquals(get_class(new StacklaDateTime()), get_class($tag->created_at), 'created_at must be DateTime object');
         $this->assertGreaterThanOrEqual(1, count($tag));
         $this->assertEquals(0, count($tag->errors));
@@ -100,7 +102,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
     public function testUpdate(Tag $tagRes)
     {
         $tag = $this->stack->instance('tag', $tagRes->id);
-        $newName = $tagRes->tag . ' - Edited';
+        $newName = $tagRes->tag.' - Edited';
         $tag->tag = $newName;
         $res = $tag->update();
 
@@ -112,7 +114,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(0, count($tag->errors));
             $this->assertEquals($newName, $tag->tag);
         }
-   }
+    }
 
     /**
      * @depends testCreate
@@ -127,7 +129,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
             try {
                 $tag = $this->stack->instance('tag');
                 $tag->getById($tagRes->id);
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 // exception's been throw because of the requested tag is not exist
             }
             // $tag should empty because the deletion

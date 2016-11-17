@@ -9,59 +9,59 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Tile's properties
  *
  * @package Stackla\Api
- *
- * @property integer                        $term_id
- * @property-read string                    $_id
- * @property-read string                    $sta_feed_id
- * @property string                         $guid
- * @property string                         $name
- * @property string                         $avatar
- * @property string                         $title
- * @property string                         $share_text
- * @property string                         $media
- * @property string                         $video_url
- * @property-read string                    $source_user_id
- * @property string                         $width_ratio
- * @property string                         $height_ratio
- * @property string                         $original_url
- * @property string                         $image
- * @property string                         $image_url
- * @property string                         $image_small_url
- * @property string                         $image_medium_url
- * @property string                         $image_large_url
- * @property integer                        $image_width
- * @property integer                        $image_height
- * @property integer                        $image_small_width
- * @property integer                        $image_small_height
- * @property integer                        $image_medium_width
- * @property integer                        $image_medium_height
- * @property integer                        $image_large_width
- * @property integer                        $image_large_height
- * @property string                         $message
- * @property-read string                    $original_url
- * @property string                         $html
- * @property \Stackla\Api\Tag[]             $tags
- * @property-read string|enum               $source
- * @property string|enum                    $status
- * @property string                         $longitude
- * @property string                         $latitude
- * @property string[]                       $disabled_reason
- * @property-read bool                           $disabled
- * @property-read bool                           $claimed
- * @property-read bool                           $anonymous
- * @property-read integer                        $score
- * @property-read integer                        $numVotes
- * @property-read integer                        $numUps
- * @property-read integer                        $numDowns
- * @property-read integer                        $numComments
- * @property-read \Stackla\Core\StacklaDateTime  $created_at
- * @property-read \Stackla\Core\StacklaDateTime  $updated_at
- * @property-read \Stackla\Core\StacklaDateTime  $source_created_at
+ * @property integer                            $term_id
+ * @property-read string                        $_id
+ * @property-read string                        $sta_feed_id
+ * @property string                             $guid
+ * @property string                             $name
+ * @property string                             $avatar
+ * @property string                             $title
+ * @property string                             $share_text
+ * @property string                             $media
+ * @property string                             $video_url
+ * @property-read string                        $source_user_id
+ * @property string                             $width_ratio
+ * @property string                             $height_ratio
+ * @property string                             $original_url
+ * @property string                             $image
+ * @property string                             $image_url
+ * @property string                             $image_small_url
+ * @property string                             $image_medium_url
+ * @property string                             $image_large_url
+ * @property integer                            $image_width
+ * @property integer                            $image_height
+ * @property integer                            $image_small_width
+ * @property integer                            $image_small_height
+ * @property integer                            $image_medium_width
+ * @property integer                            $image_medium_height
+ * @property integer                            $image_large_width
+ * @property integer                            $image_large_height
+ * @property string                             $message
+ * @property-read string                        $original_url
+ * @property string                             $html
+ * @property \Stackla\Api\Tag[]                 $tags
+ * @property-read string|enum                   $source
+ * @property string|enum                        $status
+ * @property string                             $longitude
+ * @property string                             $latitude
+ * @property string[]                           $disabled_reason
+ * @property-read bool                          $disabled
+ * @property-read bool                          $claimed
+ * @property-read bool                          $anonymous
+ * @property-read integer                       $score
+ * @property-read integer                       $numVotes
+ * @property-read integer                       $numUps
+ * @property-read integer                       $numDowns
+ * @property-read integer                       $numComments
+ * @property-read \Stackla\Core\StacklaDateTime $created_at
+ * @property-read \Stackla\Core\StacklaDateTime $updated_at
+ * @property-read \Stackla\Core\StacklaDateTime $source_created_at
  */
 class Tile extends StacklaModel implements TileInterface
 {
     /**
      * Endpoints
+     *
      * @var string
      */
     protected $endpoint = 'tiles';
@@ -74,7 +74,8 @@ class Tile extends StacklaModel implements TileInterface
     protected $_termId;
 
     /**
-     * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose the ID as a 24-byte string.
+     * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose
+     * the ID as a 24-byte string.
      *
      * @var string
      */
@@ -83,9 +84,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Globally unique ID to be used for this post (often referencing external ID).
      * Tiles that have this value set can also be retrived using the guid: operator (see _id).
-     *
      * Note
-     *
      * When a tile is created, its _id is not known immediately, and hence won't be returned
      * when the Tile is created. When a guid is specified, it can be used to retrieve the
      * specific tile at a later time without knowing the _id.
@@ -97,9 +96,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Globally unique ID to be used for this post (often referencing external ID).
      * Tiles that have this value set can also be retrived using the guid: operator (see _id).
-     *
      * Note
-     *
      * When a tile is created, its _id is not known immediately, and hence won't be returned
      * when the Tile is created. When a guid is specified, it can be used to retrieve the
      * specific tile at a later time without knowing the _id.
@@ -126,7 +123,6 @@ class Tile extends StacklaModel implements TileInterface
      * URL to be used as the post author's avatar.
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_avatar;
@@ -150,7 +146,6 @@ class Tile extends StacklaModel implements TileInterface
      * The media type of the post. Must be one of: text, image, video or html.
      *
      * @var string
-     *
      * @Assert\Choice(choices={"text", "image", "video", "html"})
      */
     protected $_media;
@@ -159,7 +154,6 @@ class Tile extends StacklaModel implements TileInterface
      * URL of the video file. Required when media type is "video").
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_videoUrl;
@@ -191,7 +185,6 @@ class Tile extends StacklaModel implements TileInterface
      * Full-sized image URL. Should always be deliverd via HTTPS.
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_image;
@@ -200,7 +193,6 @@ class Tile extends StacklaModel implements TileInterface
      * Full-sized image URL. Should always be deliverd via HTTPS.
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_imageUrl;
@@ -209,7 +201,6 @@ class Tile extends StacklaModel implements TileInterface
      * Small image URL (ideally under to 300x300px, or 600x600px for retina). Should always be deliverd via HTTPS.
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_imageSmallUrl;
@@ -218,7 +209,6 @@ class Tile extends StacklaModel implements TileInterface
      * Medium image URL (ideally under to 600x600px, or 1200x1200px for retina). Should always be deliverd via HTTPS.
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_imageMediumUrl;
@@ -227,7 +217,6 @@ class Tile extends StacklaModel implements TileInterface
      * Large image URL (ideally under to 600x600px, or 1200x1200px for retina). Should always be deliverd via HTTPS.
      *
      * @var string
-     *
      * @Assert\Url()
      */
     protected $_imageLargeUrl;
@@ -236,7 +225,6 @@ class Tile extends StacklaModel implements TileInterface
      * Full-sized image width.
      *
      * @var integer
-     *
      */
     protected $_imageWidth;
 
@@ -244,7 +232,6 @@ class Tile extends StacklaModel implements TileInterface
      * Full-sized image height.
      *
      * @var integer
-     *
      */
     protected $_imageHeight;
 
@@ -252,7 +239,6 @@ class Tile extends StacklaModel implements TileInterface
      * Small-sized image width.
      *
      * @var integer
-     *
      */
     protected $_imageSmallWidth;
 
@@ -260,7 +246,6 @@ class Tile extends StacklaModel implements TileInterface
      * Small-sized image height.
      *
      * @var integer
-     *
      */
     protected $_imageSmallHeight;
 
@@ -268,7 +253,6 @@ class Tile extends StacklaModel implements TileInterface
      * Medium-sized image width.
      *
      * @var integer
-     *
      */
     protected $_imageMediumWidth;
 
@@ -276,7 +260,6 @@ class Tile extends StacklaModel implements TileInterface
      * Medium-sized image height.
      *
      * @var integer
-     *
      */
     protected $_imageMediumHeight;
 
@@ -284,7 +267,6 @@ class Tile extends StacklaModel implements TileInterface
      * Large-sized image width.
      *
      * @var integer
-     *
      */
     protected $_imageLargeWidth;
 
@@ -292,15 +274,14 @@ class Tile extends StacklaModel implements TileInterface
      * Large-sized image height.
      *
      * @var integer
-     *
      */
     protected $_imageLargeHeight;
 
     /**
-     * Message body, normalised from the content source. Will be the Tweet text, Facebook status, Instagram caption, etc. Maximum 32k characters.
+     * Message body, normalised from the content source. Will be the Tweet text, Facebook status, Instagram caption,
+     * etc. Maximum 32k characters.
      *
      * @var string
-     *
      * @Assert\Type(type="string")
      */
     protected $_message;
@@ -309,7 +290,6 @@ class Tile extends StacklaModel implements TileInterface
      * Original source url for the content.
      *
      * @var string
-     *
      * @Assert\Type(type="string")
      */
     protected $_originalUrl;
@@ -318,7 +298,6 @@ class Tile extends StacklaModel implements TileInterface
      * HTML body, up to 32k characters. This field is mandatory for "html" media type.
      *
      * @var string
-     *
      * @Assert\Type(type="string")
      */
     protected $_html;
@@ -327,7 +306,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's tags
      *
      * @var \Stackla\Api\Tag[]
-     *
      */
     protected $_tags;
 
@@ -336,8 +314,8 @@ class Tile extends StacklaModel implements TileInterface
      * to as "network" in the filter context.
      *
      * @var string
-     *
-     * @Assert\Choice(choices={"twitter", "facebook", "instagram", "flickr", "pinterest", "ecal", "gplus", "rss", "stackla", "stackla_internal", "sta_feed", "tumblr", "youtube", "weibo"})
+     * @Assert\Choice(choices={"twitter", "facebook", "instagram", "flickr", "pinterest", "ecal", "gplus", "rss",
+     *                                    "stackla", "stackla_internal", "sta_feed", "tumblr", "youtube", "weibo"})
      */
     protected $_source;
 
@@ -345,7 +323,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile status
      *
      * @var string
-     *
      * @Assert\Choice(choices={"published", "queued", "disabled"})
      */
     protected $_status;
@@ -354,7 +331,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's location - Latitude value
      *
      * @var string
-     *
      */
     protected $_latitude;
 
@@ -362,7 +338,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's location - Longitude value
      *
      * @var string
-     *
      */
     protected $_longitude;
 
@@ -370,7 +345,6 @@ class Tile extends StacklaModel implements TileInterface
      * Disabled reason of tile
      *
      * @var string
-     *
      */
     protected $_disabledReason;
 
@@ -378,7 +352,6 @@ class Tile extends StacklaModel implements TileInterface
      * Disabled status of tile
      *
      * @var integer
-     *
      */
     protected $_disabled;
 
@@ -386,7 +359,6 @@ class Tile extends StacklaModel implements TileInterface
      * Status of claimed
      *
      * @var integer
-     *
      */
     protected $_claimed;
 
@@ -396,7 +368,6 @@ class Tile extends StacklaModel implements TileInterface
      * attributions the creator of this Tile.
      *
      * @var integer
-     *
      */
     protected $_anonymouse;
 
@@ -404,7 +375,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's score
      *
      * @var integer
-     *
      */
     protected $_score;
 
@@ -412,7 +382,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's votes number
      *
      * @var integer
-     *
      */
     protected $_numVotes;
 
@@ -420,7 +389,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's like counter
      *
      * @var integer
-     *
      */
     protected $_numUps;
 
@@ -428,7 +396,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's dislike counter
      *
      * @var integer
-     *
      */
     protected $_numDowns;
 
@@ -436,7 +403,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's comment counter
      *
      * @var integer
-     *
      */
     protected $_numComments;
 
@@ -444,7 +410,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's creation date
      *
      * @var \Stackla\Core\StacklaDateTime
-     *
      */
     protected $_createdAt;
 
@@ -452,7 +417,6 @@ class Tile extends StacklaModel implements TileInterface
      * Tile's updated date
      *
      * @var \Stackla\Core\StacklaDateTime
-     *
      */
     protected $_updatedAt;
 
@@ -464,9 +428,10 @@ class Tile extends StacklaModel implements TileInterface
     protected $_sourceCreatedAt;
 
     /**
-     * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose the ID as a 24-byte string.
+     * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose
+     * the ID as a 24-byte string.
      *
-     * @param string|mixed  $_id
+     * @param string|mixed $_id
      *
      * @return $this
      */
@@ -482,7 +447,8 @@ class Tile extends StacklaModel implements TileInterface
     }
 
     /**
-     * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose the ID as a 24-byte string.
+     * Unique identifier for the Tile, in the Stack. This is an object containing a "$id" property, which will expose
+     * the ID as a 24-byte string.
      *
      * @return string
      */
@@ -522,7 +488,7 @@ class Tile extends StacklaModel implements TileInterface
     /**
      * Delete single tag from term
      *
-     * @param \Stackla\Api\Tag  $tag
+     * @param \Stackla\Api\Tag $tag
      *
      * @return $this
      */
@@ -570,7 +536,7 @@ class Tile extends StacklaModel implements TileInterface
     public function create()
     {
         $endpoint = sprintf("%s?", $this->endpoint);
-        if(isset($this->term_id) && !is_null($this->term_id)) {
+        if (isset($this->term_id) && !is_null($this->term_id)) {
             $endpoint = sprintf("%s?term_id=%s", $this->endpoint, $this->term_id);
         }
         $data = $this->toArray(true);
@@ -586,14 +552,13 @@ class Tile extends StacklaModel implements TileInterface
 
     /**
      * Get tiles will require filter_id
-     *
      * {@inheritdoc} Will need to pass filter_id in the array of options
      *
-     * @param integer   $filter_id  filter id
-     * @param integer   $limit      default value is 25
-     * @param integet   $page       default value is 1
-     * @param array     $options    optional data
-     * @param bool      $force      force to
+     * @param integer $filter_id filter id
+     * @param integer $limit     default value is 25
+     * @param integet $page      default value is 1
+     * @param array   $options   optional data
+     * @param bool    $force     force to
      *
      * @return mixed    Will return FALSE if the API connection is failed
      *                  otherwise will return json object
@@ -602,7 +567,7 @@ class Tile extends StacklaModel implements TileInterface
     {
         $arg_list = func_get_args();
 
-        if (!isset($arg_list[0])  || empty($arg_list[0])) {
+        if (!isset($arg_list[0]) || empty($arg_list[0])) {
             $message = sprintf('Missing argument 1 to %s::%s() must be an integer.', get_class($this), __METHOD__);
             throw new \Exception($message);
         }
@@ -622,12 +587,12 @@ class Tile extends StacklaModel implements TileInterface
 
     public function getByGuid($id)
     {
-        return $this->getByStacklaFeedId($id);
+        return parent::getById('guid:' . $id);
     }
 
     public function getByStacklaFeedId($id)
     {
-        return parent::getById('sta_feed_id:'.$id);
+        return parent::getById('sta_feed_id:' . $id);
     }
 
 }

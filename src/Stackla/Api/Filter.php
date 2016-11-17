@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Filter
  *
- * @package Stakla\Api
+ * Stakla\Api
  *
  * @property-read integer                $id
  * @property string                 $name
