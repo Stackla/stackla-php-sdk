@@ -96,35 +96,15 @@ class TileTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFetchById()
-    {
-        $tile = $this->stack->instance('tile');
-        $tile->getById(TILE_ID);
-
-        $tiles = $tile->getResults();
-        if (count($tiles)) {
-            $tileClass = get_class(new Tile());
-            foreach ($tiles as $tile) {
-                $this->assertEquals($tileClass, get_class($tile), 'Tile is not using '.$tileClass.' class; '.$tile->toJSON());
-            }
-        }
-
-        $this->assertEquals(TILE_ID, $tile->id, 'ID must be equal');
-        $this->assertEquals(get_class(new StacklaDateTime()), get_class($tile->created_at), 'created_on must be DateTime object');
-        $this->assertGreaterThanOrEqual(1, count($tile));
-        $this->assertEquals(0, count($tile->errors));
-    }
-
     /**
      * @depends testCreate
      */
-    public function testFetchByGuid(Tile $tileRes = null)
+    public function testFetchByStacklaFeedId(Tile $tileRes = null)
     {
-        // guid is an alias of sta_feed_id
         $sta_feed_id = $tileRes->sta_feed_id;
+        /** @var Tile $tile */
         $tile = $this->stack->instance('tile');
-        //$tile = new Tile($this->credentials);
-        $tile->getByGuid($sta_feed_id);
+        $tile->getByStacklaFeedId($sta_feed_id);
 
         $tiles = $tile->getResults();
         if (count($tiles)) {
@@ -135,6 +115,30 @@ class TileTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals($sta_feed_id, $tile->sta_feed_id, 'ID must be equal');
+        $this->assertEquals(get_class(new StacklaDateTime()), get_class($tile->created_at), 'created_on must be DateTime object');
+        $this->assertGreaterThanOrEqual(1, count($tile));
+        $this->assertEquals(0, count($tile->errors));
+
+        return $tile;
+    }
+
+    /**
+     * @depends testFetchByStacklaFeedId
+     */
+    public function testFetchById(Tile $tileRes = null)
+    {
+        $tile = $this->stack->instance('tile');
+        $tile->getById($tileRes->getId());
+
+        $tiles = $tile->getResults();
+        if (count($tiles)) {
+            $tileClass = get_class(new Tile());
+            foreach ($tiles as $tile) {
+                $this->assertEquals($tileClass, get_class($tile), 'Tile is not using '.$tileClass.' class; '.$tile->toJSON());
+            }
+        }
+
+        $this->assertEquals($tileRes->getId(), $tile->id, 'ID must be equal');
         $this->assertEquals(get_class(new StacklaDateTime()), get_class($tile->created_at), 'created_on must be DateTime object');
         $this->assertGreaterThanOrEqual(1, count($tile));
         $this->assertEquals(0, count($tile->errors));

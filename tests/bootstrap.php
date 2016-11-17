@@ -15,6 +15,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 AnnotationRegistry::registerLoader(array($autoloaded, 'loadClass'));
 
 define('ACCESS_TOKEN', getenv('ACCESS_TOKEN'));
+define('ACCESS_TOKEN_PERMISSION', getenv('ACCESS_TOKEN_PERMISSION') ?: 'rw');
 define('API_STACK', getenv('API_STACK'));
 define('API_HOST', getenv('API_HOST'));
 define('DEFAULT_FILTER_ID', getenv('DEFAULT_FILTER_ID'));
