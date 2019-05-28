@@ -67,7 +67,7 @@ if ($response && !empty($response['data'])) {
             var cdn = stackName + '.' + (window.StacklaOemConfig ? window.StacklaOemConfig.cdn : 'my-oem.stackla.com');
             var t = d.createElement('script');
             t.type = 'text/javascript';
-            t.src = 'https://' + cdn + '/media/js/common/oem_embed.js';
+            t.src = 'https://' + cdn + '/media/js/plugins/embed/oem-embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(t);
         }(document));
         </script>
