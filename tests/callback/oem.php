@@ -1,10 +1,14 @@
 <?php
 
+include 'header.php';
 include 'config.php';
 
-if (is_readable('.access_token')) {
-    $accessToken = file_get_contents('.access_token');
+if (empty($_SESSION['token'])) {
+
+  die('Please login to continue');
 }
+
+$accessToken = $_SESSION['token'];
 
 $params = array(
     'grant_type' => 'exchange_token'
